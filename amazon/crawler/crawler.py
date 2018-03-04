@@ -1,3 +1,4 @@
+from pyvirtualdisplay import Display
 from selenium import webdriver
 from urllib.error import HTTPError
 import time
@@ -7,6 +8,9 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.action_chains import ActionChains
+
+display = Display(visible=0, size=(800, 800))  
+display.start()
 
 url='https://www.amazon.in/gp/site-directory/ref=nav_shopall_btn/260-5666397-1854820'
 driver=webdriver.Chrome()
