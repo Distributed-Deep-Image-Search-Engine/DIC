@@ -42,7 +42,7 @@ for i in range(2,5):
         print("Done: {:.2f}%".format(page/int(page_number) * 100), end='\r')
 
         li_tags_in_page=driver.find_elements_by_tag_name('li')
-        time.sleep(2)
+        time.sleep(4)
         
         for i in range(0,len(li_tags_in_page)):
             c=li_tags_in_page[i].get_attribute('id')
