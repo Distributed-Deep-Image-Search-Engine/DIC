@@ -42,7 +42,7 @@ for i in range(2,5):
         print("Done: {:.2f}%".format(page/int(page_number) * 100), end='\r')
 
         li_tags_in_page=driver.find_elements_by_tag_name('li')
-        time.sleep(4)
+        time.sleep(2)
         
         for i in range(0,len(li_tags_in_page)):
             c=li_tags_in_page[i].get_attribute('id')
@@ -66,7 +66,7 @@ for i in range(2,5):
 
         next_page = driver.find_element_by_xpath('//*[@id="pagnNextString"]')
         driver.execute_script('arguments[0].click();', next_page)
-        time.sleep(1)
+        time.sleep(2)
     
     print('\n')
     print('Catergory over.......\n Changing to new sub-category......')
