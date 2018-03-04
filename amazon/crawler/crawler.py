@@ -39,7 +39,6 @@ for i in range(2,5):
     
     while(page<int(page_number)):
         product_ids=[]
-        print("Done: {:.2f}%".format(page/int(page_number) * 100), end='\r')
 
         li_tags_in_page=driver.find_elements_by_tag_name('li')
         time.sleep(2)
@@ -49,7 +48,8 @@ for i in range(2,5):
             if c!='':
                 e=c.split('result_')
                 product_ids.append(int(e[1]))
-        print(len(product_ids))
+        print("Done: {:.2f}% \t Items Retrieved: {}".format(page/int(page_number) * 100, len(product_ids)), end='\r')
+
         
         for i in range(product_ids[0],product_ids[-1]):
             abc=prod_xpath[0] + '_' + str(i) + prod_xpath[1]
