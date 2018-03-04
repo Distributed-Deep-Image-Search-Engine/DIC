@@ -1,0 +1,43 @@
+name: dic
+channels:
+  - anaconda
+  - conda-forge
+  - defaults
+dependencies:
+  - asn1crypto=0.24.0=py36_0
+  - beautifulsoup4=4.6.0=py36h49b8c8c_1
+  - cffi=1.11.4=py36h9745a5d_0
+  - chardet=3.0.4=py36h0f667ec_1
+  - cryptography=2.1.4=py36hd09be54_0
+  - idna=2.6=py36h82fb2a8_1
+  - libffi=3.2.1=hd88cf55_4
+  - libgcc-ng=7.2.0=h7cc24e2_2
+  - libstdcxx-ng=7.2.0=h7a57d05_2
+  - pycparser=2.18=py36hf9f622e_1
+  - pyopenssl=17.5.0=py36h20ba746_0
+  - pysocks=1.6.8=py36_0
+  - requests=2.18.4=py36he2e5f8d_1
+  - six=1.11.0=py36h372c433_1
+  - urllib3=1.22=py36hbe7ace6_0
+  - easyprocess=0.2.3=py36_0
+  - ncurses=5.9=10
+  - pip=9.0.1=py36_1
+  - python=3.6.4=0
+  - pyvirtualdisplay=0.2.1=py36_0
+  - readline=7.0=0
+  - selenium=3.9.0=py36_0
+  - setuptools=38.5.1=py36_0
+  - sqlite=3.20.1=2
+  - tk=8.6.7=0
+  - wheel=0.30.0=py36_2
+  - xz=5.2.3=0
+  - zlib=1.2.11=0
+  - ca-certificates=2017.08.26=h1d4fec5_0
+  - certifi=2018.1.18=py36_0
+  - icu=58.2=h9c2bf20_1
+  - libxml2=2.9.7=h26e45fe_0
+  - libxslt=1.1.32=h1312cb7_0
+  - lxml=4.1.1=py36hf71bdeb_1
+  - openssl=1.0.2n=hb7f436b_0
+prefix: /home/ankityolo69/anaconda3/envs/dice
+
