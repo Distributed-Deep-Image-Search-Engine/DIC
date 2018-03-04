@@ -58,6 +58,8 @@ def mens_fashion():
 
                 except(NoSuchElementException):
                     print(end='\r')
+
+			print(len(product_ids))
             page+=1
 
             next_page = driver.find_element_by_xpath('//*[@id="pagnNextString"]')
@@ -93,7 +95,9 @@ def women_fashion():
             page_number = driver.find_element_by_xpath('//*[@id="pagn"]/span[6]').text
             print(page_number)
             while (page < int(page_number)):
-                d = []
+                product_ids = []
+
+                print("Done: {:.2f}%".format(page/int(page_number) * 100), end='\r')
 
                 b = driver.find_elements_by_tag_name('li')
                 time.sleep(2)
@@ -101,8 +105,9 @@ def women_fashion():
                     c = b[i].get_attribute('id')
                     if c != '':
                         e = c.split('result_')
-                        d.append(int(e[1]))
-                for i in range(d[0], d[-1]):
+                        product_ids.append(int(e[1]))
+
+                for i in range(product_ids[0], product_ids[-1]):
                     abc = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
                     try:
                         link = driver.find_element_by_xpath(abc).get_attribute('href')
@@ -110,6 +115,7 @@ def women_fashion():
                         thefile.write('\n')
                     except(NoSuchElementException):
                         print('Sponsored Link')
+				print(len(product_ids))
                 page += 1
                 next_page = driver.find_element_by_xpath('//*[@id="pagnNextString"]')
                 driver.execute_script('arguments[0].click();', next_page)
@@ -139,7 +145,7 @@ def global_store():
         prod_xpath = xpath.split('_i')
         page_number = driver.find_element_by_xpath('//*[@id="pagn"]/span[6]').text
         while (page < int(page_number)):
-            d = []
+            product_ids = []
 
             b = driver.find_elements_by_tag_name('li')
             time.sleep(2)
@@ -147,8 +153,8 @@ def global_store():
                 c = b[i].get_attribute('id')
                 if c != '':
                     e = c.split('result_')
-                    d.append(int(e[1]))
-            for i in range(d[0], d[-1]):
+                    product_ids.append(int(e[1]))
+            for i in range(product_ids[0], product_ids[-1]):
                 abc = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
                 try:
                     link = driver.find_element_by_xpath(abc).get_attribute('href')
@@ -156,6 +162,8 @@ def global_store():
                     thefile.write('\n')
                 except(NoSuchElementException):
                     print('Sponsored Link')
+
+            print(len(product_ids))
             page += 1
             next_page = driver.find_element_by_xpath('//*[@id="pagnNextString"]')
             driver.execute_script('arguments[0].click();', next_page)
