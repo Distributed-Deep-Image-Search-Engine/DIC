@@ -58,8 +58,7 @@ def mens_fashion():
 
                 except(NoSuchElementException):
                     print(end='\r')
-
-			print(len(product_ids))
+            print(len(product_ids))
             page+=1
 
             next_page = driver.find_element_by_xpath('//*[@id="pagnNextString"]')
@@ -114,8 +113,8 @@ def women_fashion():
                         thefile.writelines(link)
                         thefile.write('\n')
                     except(NoSuchElementException):
-                        print('Sponsored Link')
-				print(len(product_ids))
+                        print("Sponsored Links")
+                print(len(product_ids))
                 page += 1
                 next_page = driver.find_element_by_xpath('//*[@id="pagnNextString"]')
                 driver.execute_script('arguments[0].click();', next_page)
@@ -146,7 +145,7 @@ def global_store():
         page_number = driver.find_element_by_xpath('//*[@id="pagn"]/span[6]').text
         while (page < int(page_number)):
             product_ids = []
-
+            print("Done: {:.2f}%".format(page/int(page_number)*100), end='\r')
             b = driver.find_elements_by_tag_name('li')
             time.sleep(2)
             for i in range(0, len(b)):
@@ -162,8 +161,8 @@ def global_store():
                     thefile.write('\n')
                 except(NoSuchElementException):
                     print('Sponsored Link')
-
-            print(len(product_ids))
+             print(len(product_ids))
+#            print(len(product_ids))
             page += 1
             next_page = driver.find_element_by_xpath('//*[@id="pagnNextString"]')
             driver.execute_script('arguments[0].click();', next_page)
