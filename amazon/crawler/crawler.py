@@ -161,7 +161,7 @@ def global_store():
                     thefile.write('\n')
                 except(NoSuchElementException):
                     print('Sponsored Link')
-             print(len(product_ids))
+            print(len(product_ids))
 #            print(len(product_ids))
             page += 1
             next_page = driver.find_element_by_xpath('//*[@id="pagnNextString"]')
