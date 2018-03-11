@@ -13,17 +13,20 @@ driver=webdriver.Chrome()
 driver.get(url)
 timeout=100
 
+filepath='seeds.txt'
 thefile = open('data_new.txt', 'w')
+with open(filepath) as fp:
+    line=fp.readlines()
 
 def mens_fashion():
     x='//*[@id="shopAllLinks"]/tbody/tr/td[2]/div[2]/ul/li[2]/a'
-
     split_cat_xpath=x.split('li[2]')
 
 
     for i in range(1,17):
 
         sub_category=split_cat_xpath[0] + 'li[' + str(i) + ']' + split_cat_xpath[1]
+        print(sub_category)
         mens_fashion=driver.find_element_by_xpath(sub_category).click()
 
         page=1
@@ -81,7 +84,7 @@ def women_fashion():
     x = '//*[@id="shopAllLinks"]/tbody/tr/td[2]/div[3]/ul/li[1]/a'
     
     split_cat_xpath = x.split('li[1]')
-    for i in range(1, 17):
+    for i in range(2, 17):
         if i==15 or i==3:
             continue
         else:
@@ -92,7 +95,6 @@ def women_fashion():
             xpath = '//*[@id="result_i"]/div/div[3]/div[1]/a'
             prod_xpath = xpath.split('_i')
             page_number = driver.find_element_by_xpath('//*[@id="pagn"]/span[6]').text
-            print(page_number)
             while (page < int(page_number)):
                 product_ids = []
 
@@ -113,7 +115,7 @@ def women_fashion():
                         thefile.writelines(link)
                         thefile.write('\n')
                     except(NoSuchElementException):
-                        print("Sponsored Links")
+                        print(end='\r')
                 print(len(product_ids))
                 page += 1
                 next_page = driver.find_element_by_xpath('//*[@id="pagnNextString"]')
@@ -160,9 +162,8 @@ def global_store():
                     thefile.writelines(link)
                     thefile.write('\n')
                 except(NoSuchElementException):
-                    print('Sponsored Link')
+                    print(end='\r')
             print(len(product_ids))
-#            print(len(product_ids))
             page += 1
             next_page = driver.find_element_by_xpath('//*[@id="pagnNextString"]')
             driver.execute_script('arguments[0].click();', next_page)
@@ -172,9 +173,17 @@ def global_store():
         print('\n')
         driver.get('https://www.amazon.in/gp/site-directory/ref=nav_shopall_btn/260-5666397-1854820')
 
-mens_fashion()
-women_fashion()
-global_store()
+
+
+
+dict_category_function={'Mens Fashion': mens_fashion,
+                        'Womens Fashion': women_fashion,
+                        'Global Store': global_store
+                        }
+for i in range(len(line)):
+    choice=str(line[i]).replace('\n','')
+    dict_category_function[choice]()
+
 
 driver.quit()
 
