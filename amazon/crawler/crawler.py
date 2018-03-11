@@ -1,3 +1,4 @@
+# Importing Libraries
 from selenium import webdriver
 from urllib.error import HTTPError
 import time
@@ -8,15 +9,6 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.action_chains import ActionChains
 
-url='https://www.amazon.in/gp/site-directory/ref=nav_shopall_btn/260-5666397-1854820'
-driver=webdriver.Chrome()
-driver.get(url)
-timeout=100
-
-filepath='seeds.txt'
-thefile = open('data_new.txt', 'w')
-with open(filepath) as fp:
-    line=fp.readlines()
 
 def mens_fashion():
     x='//*[@id="shopAllLinks"]/tbody/tr/td[2]/div[2]/ul/li[2]/a'
@@ -293,20 +285,31 @@ def Tv_Appliancs_Electronics():
             driver.get('https://www.amazon.in/gp/site-directory/ref=nav_shopall_btn/260-5666397-1854820')
 
 
+if __name__ == '__main__':
+	url='https://www.amazon.in/gp/site-directory/ref=nav_shopall_btn/260-5666397-1854820'
+	driver=webdriver.Chrome()
+	driver.get(url)
+	timeout=100
 
-dict_category_function={'Mens Fashion': mens_fashion,
+	filepath='seeds.txt'
+	thefile = open('data_new.txt', 'w')
+	
+	with open(filepath) as fp:
+		line=fp.readlines()
+
+
+	dict_category_function={'Mens Fashion': mens_fashion,
                         'Womens Fashion': women_fashion,
                         'Global Store': global_store,
                         'Sports and Fitness': Sports_fitness,
                         'Electronics': Tv_Appliancs_Electronics
                         }
-for i in range(len(line)):
-    choice=str(line[i]).replace('\n','')
-    dict_category_function[choice]()
 
 
-driver.quit()
+	for i in range(len(line)):
+		choice=str(line[i]).replace('\n','')
+		dict_category_function[choice]()
 
-
-thefile.close()
-
+	driver.quit()
+	
+	thefile.close()
