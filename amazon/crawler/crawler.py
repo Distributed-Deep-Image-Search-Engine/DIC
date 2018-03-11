@@ -286,19 +286,19 @@ def Tv_Appliancs_Electronics():
 
 
 if __name__ == '__main__':
-	url='https://www.amazon.in/gp/site-directory/ref=nav_shopall_btn/260-5666397-1854820'
-	driver=webdriver.Chrome()
-	driver.get(url)
-	timeout=100
+    url='https://www.amazon.in/gp/site-directory/ref=nav_shopall_btn/260-5666397-1854820'
+    driver=webdriver.Chrome()
+    driver.get(url)
+    timeout=100
 
-	filepath='seeds.txt'
-	thefile = open('data_new.txt', 'w')
-	
-	with open(filepath) as fp:
-		line=fp.readlines()
+    filepath='seeds.txt'
+    thefile = open('data_new.txt', 'w')
+
+    with open(filepath) as fp:
+        line=fp.readlines()
 
 
-	dict_category_function={'Mens Fashion': mens_fashion,
+    dict_category_function={'Mens Fashion': mens_fashion,
                         'Womens Fashion': women_fashion,
                         'Global Store': global_store,
                         'Sports and Fitness': Sports_fitness,
@@ -306,10 +306,10 @@ if __name__ == '__main__':
                         }
 
 
-	for i in range(len(line)):
-		choice=str(line[i]).replace('\n','')
-		dict_category_function[choice]()
+    for i in range(len(line)):
+        choice=str(line[i]).replace('\n','')
+        dict_category_function[choice]()
 
-	driver.quit()
-	
-	thefile.close()
+    driver.quit()
+
+    thefile.close()

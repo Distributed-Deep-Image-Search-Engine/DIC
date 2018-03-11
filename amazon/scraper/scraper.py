@@ -1,13 +1,17 @@
 from bs4 import BeautifulSoup
 import requests
 import re
+import fake_useragent
 
 class ProductData:
     soup = ''
     reqt = ''
 
     def __init__(self, url):
-        self.reqt = (requests.get(url))
+        self.agent = fake_useragent.UserAgent(fallback='chrome')
+        self.head = self.agent.random
+        self.header = {'User-Agent': self.head}
+        self.reqt = (requests.get(url,headers=self.header,timeout=None))
         self.soup = BeautifulSoup((self.reqt).text, "lxml").decode('utf-8')  # making soup
 
     def get_images(self):
