@@ -13,7 +13,7 @@ word = None
 for line in sys.stdin:
     # remove leading and trailing whitespace
     line = line.strip()
-
+    print(line)
     # parse the input we got from mapper.py
     asin, data = line.split('\t')
     print(asin)
@@ -43,9 +43,9 @@ def download(urls=['http://www.gunnerkrigg.com//comics/00000001.jpg']):
     for url in urls:
         try:
             image = ur.urlopen(url).read()
-        except urllib.HTTPError, e:
+        except urllib.error.HTTPError as e:
             print(e.code)
-        except urllib.URLError, e:
+        except urllib.error.URLError as e:
             print(e.args)
         images.append(image)
     return images

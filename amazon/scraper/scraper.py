@@ -8,7 +8,7 @@ class ProductData:
     reqt = ''
 
     def __init__(self, url):
-        self.agent = fake_useragent.UserAgent(fallback='chrome')
+        self.agent = fake_useragent.UserAgent()
         self.head = self.agent.random
         self.header = {'User-Agent': self.head}
         self.reqt = (requests.get(url,headers=self.header,timeout=None))
