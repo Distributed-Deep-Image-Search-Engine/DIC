@@ -1,0 +1,40 @@
+name: dic-scp
+channels:
+- mlgill
+- conda-forge
+- anaconda
+- defaults
+dependencies:
+- asn1crypto=0.24.0=py35_0
+- beautifulsoup4=4.6.0=py35h442a8c9_1
+- cffi=1.11.5=py35h9745a5d_0
+- chardet=3.0.4=py35hb6e9ddf_1
+- cryptography=2.1.4=py35hbeb2da1_0
+- idna=2.6=py35h8605a33_1
+- pycparser=2.18=py35h61b3040_1
+- pyopenssl=17.5.0=py35h4f8b8c8_0
+- pysocks=1.6.8=py35_0
+- requests=2.18.4=py35hb9e6ad1_1
+- six=1.11.0=py35h423b573_1
+- urllib3=1.22=py35h2ab6e29_0
+- regex=2018.02.21=py35_0
+- ca-certificates=2017.08.26=h1d4fec5_0
+- certifi=2018.1.18=py35_0
+- libedit=3.1=heed3624_0
+- libffi=3.2.1=hd88cf55_4
+- libgcc-ng=7.2.0=hdf63c60_3
+- libstdcxx-ng=7.2.0=hdf63c60_3
+- ncurses=6.0=h9df7e31_2
+- openssl=1.0.2n=hb7f436b_0
+- pip=9.0.1=py35_5
+- python=3.5.5=hc3d631a_0
+- readline=7.0=ha6073c6_4
+- setuptools=38.5.1=py35_0
+- sqlite=3.22.0=h1bed415_0
+- tk=8.6.7=hc745277_3
+- wheel=0.30.0=py35hd3883cf_1
+- xz=5.2.3=h55aa19d_2
+- zlib=1.2.11=ha838bed_2
+- fake-useragent=0.1.2=py35_0
+prefix: /home/aman/anaconda3/envs/dic-scp
+
