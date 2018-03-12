@@ -2,7 +2,7 @@
 from selenium import webdriver
 from urllib.error import HTTPError
 import time
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException,StaleElementReferenceException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
@@ -20,7 +20,8 @@ def mens_fashion():
 
         sub_category=split_cat_xpath[0] + 'li[' + str(i) + ']' + split_cat_xpath[1]
         print(sub_category)
-        mens_fashion=driver.find_element_by_xpath(sub_category).click()
+        mens_fashion=driver.find_element_by_xpath(sub_category)
+        driver.execute_script('arguments[0].click();',mens_fashion)
 
         page=1
 
@@ -63,7 +64,7 @@ def mens_fashion():
                 driver.execute_script('arguments[0].click();', next_page)
                 time.sleep(2)
 
-            except(NoSuchElementException):
+            except(NoSuchElementException or StaleElementReferenceException):
 
                 continue
 
@@ -124,7 +125,7 @@ def women_fashion():
                     driver.execute_script('arguments[0].click();', next_page)
                     time.sleep(2)
 
-                except(NoSuchElementException):
+                except(NoSuchElementException or StaleElementReferenceException):
 
                     continue
 
@@ -141,7 +142,7 @@ def global_store():
         print("Timed out waiting for page to load")
     x = '//*[@id="shopAllLinks"]/tbody/tr/td[4]/div[5]/ul/li[1]/a'
     split_cat_xpath = x.split('li[1]')
-    selected_categories=[1,2,4,9,11]
+    selected_categories=[1,2,3,4,8,9,10,11,12,13]
     for i in selected_categories:
         sub_category = split_cat_xpath[0] + 'li[' + str(i) + ']' + split_cat_xpath[1]
         glob_store = driver.find_element_by_xpath(sub_category)
@@ -179,7 +180,7 @@ def global_store():
                 driver.execute_script('arguments[0].click();', next_page)
                 time.sleep(2)
 
-            except(NoSuchElementException):
+            except(NoSuchElementException or StaleElementReferenceException):
 
                 continue
 
@@ -199,7 +200,8 @@ def Sports_fitness():
             continue
         else:
             sub_category = split_cat_xpath[0] + 'li[' + str(i) + ']' + split_cat_xpath[1]
-            sports_fitness = driver.find_element_by_xpath(sub_category).click()
+            sports_fitness = driver.find_element_by_xpath(sub_category)
+            driver.execute_script('arguments[0].click();',sports_fitness)
 
             page = 1
 
@@ -243,7 +245,7 @@ def Sports_fitness():
                     driver.execute_script('arguments[0].click();', next_page)
                     time.sleep(2)
 
-                except(NoSuchElementException):
+                except(NoSuchElementException or StaleElementReferenceException):
 
                     continue
 
@@ -264,7 +266,8 @@ def Tv_Appliancs_Electronics():
             continue
         else:
             sub_category = split_cat_xpath[0] + 'li[' + str(i) + ']' + split_cat_xpath[1]
-            electronics = driver.find_element_by_xpath(sub_category).click()
+            electronics = driver.find_element_by_xpath(sub_category)
+            driver.execute_script('arguments[0].click();',electronics)
 
             page = 1
 
@@ -308,7 +311,7 @@ def Tv_Appliancs_Electronics():
                     driver.execute_script('arguments[0].click();', next_page)
                     time.sleep(2)
 
-                except(NoSuchElementException):
+                except(NoSuchElementException or StaleElementReferenceException):
 
                     continue
 
@@ -328,7 +331,8 @@ def Mobiles_Computers():
             continue
         else:
             sub_category = split_cat_xpath[0] + 'li[' + str(i) + ']' + split_cat_xpath[1]
-            mobile = driver.find_element_by_xpath(sub_category).click()
+            mobile = driver.find_element_by_xpath(sub_category)
+            driver.execute_script('arguments[0].click();',mobile)
 
             page = 1
 
@@ -338,7 +342,7 @@ def Mobiles_Computers():
 
             page_number = driver.find_element_by_xpath('//*[@id="pagn"]/span[6]').text
 
-            while (page < 3):
+            while (page < int(page_number)):
                 product_ids = []
                 print("Done: {:.2f}%".format(page / int(page_number) * 100), end='\r')
 
@@ -372,7 +376,7 @@ def Mobiles_Computers():
                     driver.execute_script('arguments[0].click();', next_page)
                     time.sleep(2)
 
-                except(NoSuchElementException):
+                except(NoSuchElementException or StaleElementReferenceException):
 
                     continue
 
@@ -391,7 +395,8 @@ def Home_Kitchen():
             continue
         else:
             sub_category = split_cat_xpath[0] + 'li[' + str(i) + ']' + split_cat_xpath[1]
-            home_kitchen = driver.find_element_by_xpath(sub_category).click()
+            home_kitchen = driver.find_element_by_xpath(sub_category)
+            driver.execute_script('arguments[0].click();',home_kitchen)
 
             page = 1
 
@@ -401,7 +406,7 @@ def Home_Kitchen():
 
             page_number = driver.find_element_by_xpath('//*[@id="pagn"]/span[6]').text
 
-            while (page < 3):
+            while (page < int(page_number)):
                 product_ids = []
                 print("Done: {:.2f}%".format(page / int(page_number) * 100), end='\r')
 
@@ -435,7 +440,7 @@ def Home_Kitchen():
                     driver.execute_script('arguments[0].click();', next_page)
                     time.sleep(2)
 
-                except(NoSuchElementException):
+                except(NoSuchElementException or StaleElementReferenceException):
 
                     continue
 
@@ -455,7 +460,8 @@ def Toys_Baby_kids():
             continue
         else:
             sub_category = split_cat_xpath[0] + 'li[' + str(i) + ']' + split_cat_xpath[1]
-            toy_baby = driver.find_element_by_xpath(sub_category).click()
+            toy_baby = driver.find_element_by_xpath(sub_category)
+            driver.execute_script('arguments[0].click();',toy_baby)
 
             page = 1
 
@@ -465,7 +471,7 @@ def Toys_Baby_kids():
 
             page_number = driver.find_element_by_xpath('//*[@id="pagn"]/span[6]').text
 
-            while (page < 3):
+            while (page < int(page_number)):
                 product_ids = []
                 print("Done: {:.2f}%".format(page / int(page_number) * 100), end='\r')
 
@@ -499,7 +505,7 @@ def Toys_Baby_kids():
                     driver.execute_script('arguments[0].click();', next_page)
                     time.sleep(2)
 
-                except(NoSuchElementException):
+                except(NoSuchElementException or StaleElementReferenceException):
 
                     continue
 
@@ -520,7 +526,8 @@ def Cars_Motorbikes():
             continue
         else:
             sub_category = split_cat_xpath[0] + 'li[' + str(i) + ']' + split_cat_xpath[1]
-            car_bike = driver.find_element_by_xpath(sub_category).click()
+            car_bike = driver.find_element_by_xpath(sub_category)
+            driver.execute_script('arguments[0].click();',car_bike)
 
             page = 1
 
@@ -530,7 +537,7 @@ def Cars_Motorbikes():
 
             page_number = driver.find_element_by_xpath('//*[@id="pagn"]/span[6]').text
 
-            while (page < 3):
+            while (page < int(page_number)):
                 product_ids = []
                 print("Done: {:.2f}%".format(page / int(page_number) * 100), end='\r')
 
@@ -564,7 +571,201 @@ def Cars_Motorbikes():
                     driver.execute_script('arguments[0].click();', next_page)
                     time.sleep(2)
 
-                except(NoSuchElementException):
+                except(NoSuchElementException or StaleElementReferenceException):
+
+                    continue
+
+            print('\n')
+            print('Catergory over.......\n Changing to new sub-category......')
+            print('\n')
+            driver.get('https://www.amazon.in/gp/site-directory/ref=nav_shopall_btn/260-5666397-1854820')
+
+def Books():
+    x='//*[@id="shopAllLinks"]/tbody/tr/td[4]/div[2]/ul/li[1]/a'
+    split_cat_xpath = x.split('li[1]')
+    product_links=[]
+    for i in range(1, 11):
+
+        if i == 1:
+            continue
+        else:
+            sub_category = split_cat_xpath[0] + 'li[' + str(i) + ']' + split_cat_xpath[1]
+            Books = driver.find_element_by_xpath(sub_category)
+            driver.execute_script('arguments[0].click();',Books)
+
+            page = 1
+
+            xpath = '//*[@id="result_i"]/div/div[3]/div[1]/a'
+
+            prod_xpath = xpath.split('_i')
+
+            page_number = driver.find_element_by_xpath('//*[@id="pagn"]/span[6]').text
+
+            while (page < int(page_number)):
+                product_ids = []
+                print("Done: {:.2f}%".format(page / int(page_number) * 100), end='\r')
+
+                li_tags_in_page = driver.find_elements_by_tag_name('li')
+                time.sleep(2)
+
+                for i in range(0, len(li_tags_in_page)):
+                    c = li_tags_in_page[i].get_attribute('id')
+                    if c != '':
+                        e = c.split('result_')
+                        product_ids.append(int(e[1]))
+
+                for i in range(product_ids[0], product_ids[-1]):
+                    abc = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
+
+                    try:
+                        link = driver.find_element_by_xpath(abc).get_attribute('href')
+                        thefile.writelines(link)
+                        thefile.write('\n')
+                        product_links.append(link)
+
+
+                    except(NoSuchElementException):
+                        print(end='\r')
+                print(len(product_ids))
+                page += 1
+
+                try:
+
+                    next_page = driver.find_element_by_xpath('//*[@id="pagnNextString"]')
+                    driver.execute_script('arguments[0].click();', next_page)
+                    time.sleep(2)
+
+                except(NoSuchElementException or StaleElementReferenceException):
+
+                    continue
+
+            print('\n')
+            print('Catergory over.......\n Changing to new sub-category......')
+            print('\n')
+            driver.get('https://www.amazon.in/gp/site-directory/ref=nav_shopall_btn/260-5666397-1854820')
+
+
+def Movies_Music_Videogames():
+
+    x='//*[@id="shopAllLinks"]/tbody/tr/td[4]/div[3]/ul/li[1]/a'
+    split_cat_xpath = x.split('li[1]')
+    product_links=[]
+    for i in range(1, 16):
+
+        if i == 1 or i==10 or i==11:
+            continue
+        else:
+            sub_category = split_cat_xpath[0] + 'li[' + str(i) + ']' + split_cat_xpath[1]
+            movies_games = driver.find_element_by_xpath(sub_category)
+            driver.execute_script('arguments[0].click();',movies_games)
+
+            page = 1
+
+            xpath = '//*[@id="result_i"]/div/div[3]/div[1]/a'
+
+            prod_xpath = xpath.split('_i')
+
+            page_number = driver.find_element_by_xpath('//*[@id="pagn"]/span[6]').text
+
+            while (page < int(page_number)):
+                product_ids = []
+                print("Done: {:.2f}%".format(page / int(page_number) * 100), end='\r')
+
+                li_tags_in_page = driver.find_elements_by_tag_name('li')
+                time.sleep(2)
+
+                for i in range(0, len(li_tags_in_page)):
+                    c = li_tags_in_page[i].get_attribute('id')
+                    if c != '':
+                        e = c.split('result_')
+                        product_ids.append(int(e[1]))
+
+                for i in range(product_ids[0], product_ids[-1]):
+                    abc = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
+
+                    try:
+                        link = driver.find_element_by_xpath(abc).get_attribute('href')
+                        thefile.writelines(link)
+                        thefile.write('\n')
+                        product_links.append(link)
+
+
+                    except(NoSuchElementException):
+                        print(end='\r')
+                print(len(product_ids))
+                page += 1
+
+                try:
+
+                    next_page = driver.find_element_by_xpath('//*[@id="pagnNextString"]')
+                    driver.execute_script('arguments[0].click();', next_page)
+                    time.sleep(2)
+
+                except(NoSuchElementException or StaleElementReferenceException):
+
+                    continue
+
+            print('\n')
+            print('Catergory over.......\n Changing to new sub-category......')
+            print('\n')
+            driver.get('https://www.amazon.in/gp/site-directory/ref=nav_shopall_btn/260-5666397-1854820')
+
+def Giftcards():
+    x='//*[@id="shopAllLinks"]/tbody/tr/td[4]/div[4]/ul/li[1]/a'
+    split_cat_xpath = x.split('li[1]')
+    product_links=[]
+    for i in range(1, 8):
+
+        if i == 1 :
+            continue
+        else:
+            sub_category = split_cat_xpath[0] + 'li[' + str(i) + ']' + split_cat_xpath[1]
+            gift = driver.find_element_by_xpath(sub_category)
+            driver.execute_script('arguments[0].click();',gift)
+
+            page = 1
+
+            xpath = '//*[@id="result_i"]/div/div[3]/div[1]/a'
+
+            prod_xpath = xpath.split('_i')
+
+            page_number = driver.find_element_by_xpath('//*[@id="pagn"]/span[6]').text
+
+            while (page < int(page_number)):
+                product_ids = []
+                print("Done: {:.2f}%".format(page / int(page_number) * 100), end='\r')
+
+                li_tags_in_page = driver.find_elements_by_tag_name('li')
+                time.sleep(2)
+
+                for i in range(0, len(li_tags_in_page)):
+                    c = li_tags_in_page[i].get_attribute('id')
+                    if c != '':
+                        e = c.split('result_')
+                        product_ids.append(int(e[1]))
+
+                for i in range(product_ids[0], product_ids[-1]):
+                    abc = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
+
+                    try:
+                        link = driver.find_element_by_xpath(abc).get_attribute('href')
+                        thefile.writelines(link)
+                        thefile.write('\n')
+                        product_links.append(link)
+
+                    except(NoSuchElementException):
+                        print(end='\r')
+
+                print(len(product_ids))
+                page += 1
+
+                try:
+
+                    next_page = driver.find_element_by_xpath('//*[@id="pagnNextString"]')
+                    driver.execute_script('arguments[0].click();', next_page)
+                    time.sleep(2)
+
+                except(NoSuchElementException or StaleElementReferenceException):
 
                     continue
 
@@ -598,7 +799,10 @@ if __name__ == '__main__':
                             'Mobiles and Computers': Mobiles_Computers,
                             'Home and Kitchen': Home_Kitchen,
                             'Baby toys, fashion,kids': Toys_Baby_kids,
-                            'Cars and MotorBikes': Cars_Motorbikes
+                            'Cars and MotorBikes': Cars_Motorbikes,
+                            'Books': Books,
+                            'Movies, music and games': Movies_Music_Videogames,
+                            'Gift Cards': Giftcards
                             }
 
 
