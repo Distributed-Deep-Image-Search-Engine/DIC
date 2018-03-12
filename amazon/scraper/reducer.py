@@ -13,11 +13,17 @@ word = None
 for line in sys.stdin:
     # remove leading and trailing whitespace
     line = line.strip()
-    print(line)
+
+    print("\n\nREDUCER INPUT\n\n {}".format(line))
+    
     # parse the input we got from mapper.py
-    asin, data = line.split('\t')
+    asin, data = line.split('|')
+
+    print("\n\nREDUCER SPLIT\n\n")
     print(asin)
+    print()
     print(data)
+
 #     # this IF-switch only works because Hadoop sorts map output
 #     # by key (here: word) before it is passed to the reducer
 #     if current_asin == asin:

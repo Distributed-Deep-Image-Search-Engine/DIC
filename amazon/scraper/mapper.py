@@ -7,16 +7,18 @@ from scraper import ProductData
 # input comes from STDIN (standard input)
 for line in sys.stdin:
     # remove leading and trailing whitespace
-    line = line.strip()
+    url = line.strip()
     # split the line into words
-
-    prod = ProductData(line)
-    info = {'Asin':prod.get_asin(), 'Title':prod.get_title(), 'Images_link':prod.get_images(), 'Category':prod.get_category(), 'Metadata':prod.meta_data()}
-    for k,v in info.items():
-        if(v == None):
+    prod = ProductData(url)
+    asin = prod.get_asin()
+    title = prod.get_title()
+    link = prod.get_images()
+    category = prod.get_category()
+    metadata = prod.meta_data()
+    info = [asin, title, link, category, metadata]
+    
+    for i in info:
+        if(i == None):
             sys.exit('None Error')
-    # increase counters
-    data = [v for k,v in info.items()]
-    for k,v in info.items():
-        # write the results to STDOUT (standard output);
-        print('{}\t{}'.format(data[0][0], data[1:]))
+
+    print('{}|{}'.format(info[0][0], info[1:]))
