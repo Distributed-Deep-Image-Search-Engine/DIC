@@ -9,6 +9,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 import re
 
 def mens_fashion():
+    try:
+        element_present = EC.presence_of_element_located((By.XPATH, '//*[@id="shopAllLinks"]/tbody/tr'))
+        WebDriverWait(driver, timeout).until(element_present)
+
+    except TimeoutException:
+        print("Timed out waiting for page to load")
 
     x='//*[@id="shopAllLinks"]/tbody/tr/td[2]/div[2]/ul/li[2]/a'
     split_cat_xpath=x.split('li[2]')
@@ -192,6 +198,14 @@ def global_store():
 
 
 def Sports_fitness():
+
+    try:
+        element_present = EC.presence_of_element_located((By.XPATH, '//*[@id="shopAllLinks"]/tbody/tr'))
+        WebDriverWait(driver, timeout).until(element_present)
+
+    except TimeoutException:
+        print("Timed out waiting for page to load")
+
     x='//*[@id="shopAllLinks"]/tbody/tr/td[3]/div[3]/ul/li[1]/a'
     split_cat_xpath = x.split('li[1]')
     for i in range(1, 19):
@@ -257,6 +271,14 @@ def Sports_fitness():
 
 
 def Tv_Appliancs_Electronics():
+
+    try:
+        element_present = EC.presence_of_element_located((By.XPATH, '//*[@id="shopAllLinks"]/tbody/tr'))
+        WebDriverWait(driver, timeout).until(element_present)
+
+    except TimeoutException:
+        print("Timed out waiting for page to load")
+
     x='//*[@id="shopAllLinks"]/tbody/tr/td[2]/div[1]/ul/li[1]/a'
     split_cat_xpath = x.split('li[1]')
     for i in range(1, 18):
@@ -321,6 +343,14 @@ def Tv_Appliancs_Electronics():
 
 
 def Mobiles_Computers():
+
+    try:
+        element_present = EC.presence_of_element_located((By.XPATH, '//*[@id="shopAllLinks"]/tbody/tr'))
+        WebDriverWait(driver, timeout).until(element_present)
+
+    except TimeoutException:
+        print("Timed out waiting for page to load")
+
     x='//*[@id="shopAllLinks"]/tbody/tr/td[1]/div[6]/ul/li[1]/a'
     split_cat_xpath = x.split('li[1]')
     for i in range(1, 19):
@@ -384,6 +414,14 @@ def Mobiles_Computers():
             driver.get('https://www.amazon.in/gp/site-directory/ref=nav_shopall_btn/260-5666397-1854820')
 
 def Home_Kitchen():
+
+    try:
+        element_present = EC.presence_of_element_located((By.XPATH, '//*[@id="shopAllLinks"]/tbody/tr'))
+        WebDriverWait(driver, timeout).until(element_present)
+
+    except TimeoutException:
+        print("Timed out waiting for page to load")
+
     x='//*[@id="shopAllLinks"]/tbody/tr/td[3]/div[1]/ul/li[1]/a'
     split_cat_xpath = x.split('li[1]')
     for i in range(1, 18):
@@ -447,6 +485,14 @@ def Home_Kitchen():
             driver.get('https://www.amazon.in/gp/site-directory/ref=nav_shopall_btn/260-5666397-1854820')
 
 def Toys_Baby_kids():
+
+    try:
+        element_present = EC.presence_of_element_located((By.XPATH, '//*[@id="shopAllLinks"]/tbody/tr'))
+        WebDriverWait(driver, timeout).until(element_present)
+
+    except TimeoutException:
+        print("Timed out waiting for page to load")
+
     x='//*[@id="shopAllLinks"]/tbody/tr/td[3]/div[4]/ul/li[1]/a'
     # x = line[0].replace("\n", "")
     split_cat_xpath = x.split('li[1]')
@@ -512,6 +558,14 @@ def Toys_Baby_kids():
 
 
 def Cars_Motorbikes():
+
+    try:
+        element_present = EC.presence_of_element_located((By.XPATH, '//*[@id="shopAllLinks"]/tbody/tr'))
+        WebDriverWait(driver, timeout).until(element_present)
+
+    except TimeoutException:
+        print("Timed out waiting for page to load")
+
     x='//*[@id="shopAllLinks"]/tbody/tr/td[4]/div[1]/ul/li[1]/a'
     # x = line[0].replace("\n", "")
     split_cat_xpath = x.split('li[1]')
@@ -576,6 +630,14 @@ def Cars_Motorbikes():
             driver.get('https://www.amazon.in/gp/site-directory/ref=nav_shopall_btn/260-5666397-1854820')
 
 def Books():
+
+    try:
+        element_present = EC.presence_of_element_located((By.XPATH, '//*[@id="shopAllLinks"]/tbody/tr'))
+        WebDriverWait(driver, timeout).until(element_present)
+
+    except TimeoutException:
+        print("Timed out waiting for page to load")
+
     x='//*[@id="shopAllLinks"]/tbody/tr/td[4]/div[2]/ul/li[1]/a'
     split_cat_xpath = x.split('li[1]')
     for i in range(1, 11):
@@ -641,6 +703,13 @@ def Books():
 
 def Movies_Music_Videogames():
 
+    try:
+        element_present = EC.presence_of_element_located((By.XPATH, '//*[@id="shopAllLinks"]/tbody/tr'))
+        WebDriverWait(driver, timeout).until(element_present)
+
+    except TimeoutException:
+        print("Timed out waiting for page to load")
+
     x='//*[@id="shopAllLinks"]/tbody/tr/td[4]/div[3]/ul/li[1]/a'
     split_cat_xpath = x.split('li[1]')
     for i in range(1, 16):
@@ -704,6 +773,14 @@ def Movies_Music_Videogames():
             driver.get('https://www.amazon.in/gp/site-directory/ref=nav_shopall_btn/260-5666397-1854820')
 
 def Giftcards():
+
+    try:
+        element_present = EC.presence_of_element_located((By.XPATH, '//*[@id="shopAllLinks"]/tbody/tr'))
+        WebDriverWait(driver, timeout).until(element_present)
+
+    except TimeoutException:
+        print("Timed out waiting for page to load")
+
     x='//*[@id="shopAllLinks"]/tbody/tr/td[4]/div[4]/ul/li[1]/a'
     split_cat_xpath = x.split('li[1]')
     for i in range(1, 8):
@@ -773,7 +850,7 @@ if __name__ == '__main__':
     url='https://www.amazon.in/gp/site-directory/ref=nav_shopall_btn/260-5666397-1854820'
     driver=webdriver.Chrome()
     driver.get(url)
-    timeout=100
+    timeout=200
 
     filepath='seeds.txt'
     thefile = open('data_new.txt', 'w')
