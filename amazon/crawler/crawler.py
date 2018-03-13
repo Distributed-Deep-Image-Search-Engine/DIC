@@ -1,14 +1,12 @@
 # Importing Libraries
 from selenium import webdriver
-from urllib.error import HTTPError
 import time
 from selenium.common.exceptions import NoSuchElementException,StaleElementReferenceException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.common.action_chains import ActionChains
-
+import re
 
 def mens_fashion():
 
@@ -49,7 +47,8 @@ def mens_fashion():
 
                 try:
                     link=driver.find_element_by_xpath(abc).get_attribute('href')
-                    thefile.writelines(link)
+                    new_link=re.sub('/ref.*','',link)
+                    thefile.writelines(new_link)
                     thefile.write('\n')
 
 
@@ -112,7 +111,8 @@ def women_fashion():
                     abc = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
                     try:
                         link = driver.find_element_by_xpath(abc).get_attribute('href')
-                        thefile.writelines(link)
+                        new_link = re.sub('/ref.*', '', link)
+                        thefile.writelines(new_link)
                         thefile.write('\n')
                     except(NoSuchElementException):
                         print(end='\r')
@@ -167,7 +167,8 @@ def global_store():
                 abc = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
                 try:
                     link = driver.find_element_by_xpath(abc).get_attribute('href')
-                    thefile.writelines(link)
+                    new_link = re.sub('/ref.*', '', link)
+                    thefile.writelines(new_link)
                     thefile.write('\n')
                 except(NoSuchElementException):
                     print(end='\r')
@@ -193,7 +194,6 @@ def global_store():
 def Sports_fitness():
     x='//*[@id="shopAllLinks"]/tbody/tr/td[3]/div[3]/ul/li[1]/a'
     split_cat_xpath = x.split('li[1]')
-    product_links=[]
     for i in range(1, 19):
 
         if i==5 or i==12:
@@ -229,9 +229,9 @@ def Sports_fitness():
 
                     try:
                         link = driver.find_element_by_xpath(abc).get_attribute('href')
-                        thefile.writelines(link)
+                        new_link = re.sub('/ref.*', '', link)
+                        thefile.writelines(new_link)
                         thefile.write('\n')
-                        product_links.append(link)
 
 
                     except(NoSuchElementException):
@@ -259,7 +259,6 @@ def Sports_fitness():
 def Tv_Appliancs_Electronics():
     x='//*[@id="shopAllLinks"]/tbody/tr/td[2]/div[1]/ul/li[1]/a'
     split_cat_xpath = x.split('li[1]')
-    product_links=[]
     for i in range(1, 18):
 
         if i == 7 or i == 9 or i == 11 or i == 12:
@@ -295,9 +294,9 @@ def Tv_Appliancs_Electronics():
 
                     try:
                         link = driver.find_element_by_xpath(abc).get_attribute('href')
-                        thefile.writelines(link)
+                        new_link = re.sub('/ref.*', '', link)
+                        thefile.writelines(new_link)
                         thefile.write('\n')
-                        product_links.append(link)
 
 
                     except(NoSuchElementException):
@@ -324,7 +323,6 @@ def Tv_Appliancs_Electronics():
 def Mobiles_Computers():
     x='//*[@id="shopAllLinks"]/tbody/tr/td[1]/div[6]/ul/li[1]/a'
     split_cat_xpath = x.split('li[1]')
-    product_links=[]
     for i in range(1, 19):
 
         if i == 8 or i == 17 :
@@ -360,9 +358,9 @@ def Mobiles_Computers():
 
                     try:
                         link = driver.find_element_by_xpath(abc).get_attribute('href')
-                        thefile.writelines(link)
+                        new_link = re.sub('/ref.*', '', link)
+                        thefile.writelines(new_link)
                         thefile.write('\n')
-                        product_links.append(link)
 
 
                     except(NoSuchElementException):
@@ -388,7 +386,6 @@ def Mobiles_Computers():
 def Home_Kitchen():
     x='//*[@id="shopAllLinks"]/tbody/tr/td[3]/div[1]/ul/li[1]/a'
     split_cat_xpath = x.split('li[1]')
-    product_links=[]
     for i in range(1, 18):
 
         if i == 3 or i == 5 or i==7 or i==8 or i==9 or i==13 or i==14 or i==15 or i==16 :
@@ -424,9 +421,9 @@ def Home_Kitchen():
 
                     try:
                         link = driver.find_element_by_xpath(abc).get_attribute('href')
-                        thefile.writelines(link)
+                        new_link = re.sub('/ref.*', '', link)
+                        thefile.writelines(new_link)
                         thefile.write('\n')
-                        product_links.append(link)
 
 
                     except(NoSuchElementException):
@@ -453,7 +450,6 @@ def Toys_Baby_kids():
     x='//*[@id="shopAllLinks"]/tbody/tr/td[3]/div[4]/ul/li[1]/a'
     # x = line[0].replace("\n", "")
     split_cat_xpath = x.split('li[1]')
-    product_links=[]
     for i in range(1, 18):
 
         if i == 1 or i == 2 or i==4 or i==5 or i==11 or i==12 or i==13 or i==14 :
@@ -489,9 +485,9 @@ def Toys_Baby_kids():
 
                     try:
                         link = driver.find_element_by_xpath(abc).get_attribute('href')
-                        thefile.writelines(link)
+                        new_link = re.sub('/ref.*', '', link)
+                        thefile.writelines(new_link)
                         thefile.write('\n')
-                        product_links.append(link)
 
 
                     except(NoSuchElementException):
@@ -519,7 +515,6 @@ def Cars_Motorbikes():
     x='//*[@id="shopAllLinks"]/tbody/tr/td[4]/div[1]/ul/li[1]/a'
     # x = line[0].replace("\n", "")
     split_cat_xpath = x.split('li[1]')
-    product_links=[]
     for i in range(1, 11):
 
         if i == 6 or i == 7 :
@@ -555,9 +550,9 @@ def Cars_Motorbikes():
 
                     try:
                         link = driver.find_element_by_xpath(abc).get_attribute('href')
-                        thefile.writelines(link)
+                        new_link = re.sub('/ref.*', '', link)
+                        thefile.writelines(new_link)
                         thefile.write('\n')
-                        product_links.append(link)
 
 
                     except(NoSuchElementException):
@@ -583,7 +578,6 @@ def Cars_Motorbikes():
 def Books():
     x='//*[@id="shopAllLinks"]/tbody/tr/td[4]/div[2]/ul/li[1]/a'
     split_cat_xpath = x.split('li[1]')
-    product_links=[]
     for i in range(1, 11):
 
         if i == 1:
@@ -619,9 +613,9 @@ def Books():
 
                     try:
                         link = driver.find_element_by_xpath(abc).get_attribute('href')
-                        thefile.writelines(link)
+                        new_link = re.sub('/ref.*', '', link)
+                        thefile.writelines(new_link)
                         thefile.write('\n')
-                        product_links.append(link)
 
 
                     except(NoSuchElementException):
@@ -649,7 +643,6 @@ def Movies_Music_Videogames():
 
     x='//*[@id="shopAllLinks"]/tbody/tr/td[4]/div[3]/ul/li[1]/a'
     split_cat_xpath = x.split('li[1]')
-    product_links=[]
     for i in range(1, 16):
 
         if i == 1 or i==10 or i==11:
@@ -685,9 +678,9 @@ def Movies_Music_Videogames():
 
                     try:
                         link = driver.find_element_by_xpath(abc).get_attribute('href')
-                        thefile.writelines(link)
+                        new_link = re.sub('/ref.*', '', link)
+                        thefile.writelines(new_link)
                         thefile.write('\n')
-                        product_links.append(link)
 
 
                     except(NoSuchElementException):
@@ -713,7 +706,6 @@ def Movies_Music_Videogames():
 def Giftcards():
     x='//*[@id="shopAllLinks"]/tbody/tr/td[4]/div[4]/ul/li[1]/a'
     split_cat_xpath = x.split('li[1]')
-    product_links=[]
     for i in range(1, 8):
 
         if i == 1 :
@@ -749,9 +741,9 @@ def Giftcards():
 
                     try:
                         link = driver.find_element_by_xpath(abc).get_attribute('href')
-                        thefile.writelines(link)
+                        new_link = re.sub('/ref.*', '', link)
+                        thefile.writelines(new_link)
                         thefile.write('\n')
-                        product_links.append(link)
 
                     except(NoSuchElementException):
                         print(end='\r')
