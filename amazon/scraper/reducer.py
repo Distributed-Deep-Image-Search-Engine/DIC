@@ -2,12 +2,12 @@
 """reducer.py"""
 
 import sys
-import json
+import pickle
 import base64
 import urllib.request as ur
 
 
-def download(urls):
+def download_images(urls):
     images = []
     for url in urls:
         try:
@@ -20,15 +20,11 @@ def download(urls):
     return images
 
 def encode_images(images):
-    json_images = []
+    enc_images = []
     for image in images:
-        json_image = base64.b64encode(image)
-        json_images.append(json_image)
-    json_images = json.dumps(json_images) 
-    return json_images
-
-def store_image(images):
-    pass
+        enc_image = base64.b64encode(image)
+        enc_images.append(enc_image)
+    return enc_images
 
 def main():
     current_asin = None
@@ -38,17 +34,16 @@ def main():
         line = line.strip()    
         # parse the input we got from mapper.py
         asin, data_dump = line.split('\t')
-        # get back the dict format
-        data = json.loads(data_dump)
         # if we have duplicate asins
         if current_asin == asin:
            continue;
         else:
-            links = data['links']
-            images = download(links)
-            json_images = encode_images(images)
+            data['asin'] = asin
+            images = download_images(data['links'])
+            enc_images = encode_images(images)
+            data['images'] = enc_images
+            sys.stdin.buffer.write(data)
             current_asin = asin
-            print("{}\t{}{}".format(asin, data_dump, json_images))
-
+            sys.stderr.write("reporter:counter:scraper,product_counter,1\n")
 if __name__ == '__main__':
     main()
