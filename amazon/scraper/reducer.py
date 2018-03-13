@@ -24,7 +24,7 @@ def encode_images(images):
     for image in images:
         json_image = base64.b64encode(image)
         json_images.append(json_image)
-    json_images = json_dump(json_images) 
+    json_images = json.dumps(json_images) 
     return json_images
 
 def store_image(images):
