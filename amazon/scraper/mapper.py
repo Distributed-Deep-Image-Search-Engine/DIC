@@ -18,10 +18,7 @@ def main():
         links = prod.get_images()
         category = prod.get_category()
         metadata = prod.meta_data()
-        data = {'title': title,
-                'links': links,
-                'category': category,
-                'metadata': metadata}
+        data = [title, links, category, metadata]
         # Check for scraper errors
         for item in data:
             if data[item] is None:

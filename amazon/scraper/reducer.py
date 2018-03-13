@@ -33,17 +33,17 @@ def main():
         # clean dump
         line = line.strip()    
         # parse the input we got from mapper.py
-        asin, data_dump = line.split('\t')
+        asin, data = line.split('\t')
         # get back the dict format
         data = json.loads(data_dump)
         # if we have duplicate asins
         if current_asin == asin:
            continue;
         else:
-            data['asin'] = asin
-            images = download_images(data['links'])
+            images = download_images(data[1])
             enc_images = encode_images(images)
-            data['images'] = enc_images
+            data.append(enc_images)
+            data.append(asin)
             data_pkl = pickle.dumps(data)
             sys.stdout.buffer.write(data_pkl)
             current_asin = asin
