@@ -2,23 +2,34 @@
 """mapper.py"""
 
 import sys
+import json
+
 from scraper import ProductData
 
-# input comes from STDIN (standard input)
-for line in sys.stdin:
-    # remove leading and trailing whitespace
-    url = line.strip()
-    # split the line into words
-    prod = ProductData(url)
-    asin = prod.get_asin()
-    title = prod.get_title()
-    link = prod.get_images()
-    category = prod.get_category()
-    metadata = prod.meta_data()
-    info = [asin, title, link, category, metadata]
-    
-    for i in info:
-        if(i == None):
-            sys.exit('None Error')
+def main():
+    # input comes as a product link
+    for line in sys.stdin:
+        # strip the url of leading whitespaces
+        url = line.strip()
+        # scrape the product details
+        prod = ProductData(url)
+        asin = prod.get_asin()
+        title = prod.get_title()
+        links = prod.get_images()
+        category = prod.get_category()
+        metadata = prod.meta_data()
+        data = {'title': title,
+                'links': links,
+                'category': category,
+                'metadata': metadata}
+        # Check for scraper errors
+        for item in data:
+            if data[item] is None:
+                sys.exit('Fetch Error')
+        # dump data as json string
+        data_dump = json.dumps(data)
+        # put asin and json data to output stream  
+        print('{}\t{}'.format(asin, data_dump))
 
-    print('{}|{}'.format(info[0][0], info[1:]))
+if __name__ == '__main__':
+    main()
