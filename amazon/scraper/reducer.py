@@ -5,7 +5,7 @@ import sys
 import pickle
 import base64
 import urllib.request as ur
-
+import json
 
 def download_images(urls):
     images = []
@@ -34,6 +34,8 @@ def main():
         line = line.strip()    
         # parse the input we got from mapper.py
         asin, data_dump = line.split('\t')
+        # get back the dict format
+        data = json.loads(data_dump)
         # if we have duplicate asins
         if current_asin == asin:
            continue;
@@ -42,8 +44,10 @@ def main():
             images = download_images(data['links'])
             enc_images = encode_images(images)
             data['images'] = enc_images
-            sys.stdin.buffer.write(data)
+            data_pkl = pickle.dumps(data)
+            sys.stdout.buffer.write(data_pkl)
             current_asin = asin
             sys.stderr.write("reporter:counter:scraper,product_counter,1\n")
+
 if __name__ == '__main__':
     main()
