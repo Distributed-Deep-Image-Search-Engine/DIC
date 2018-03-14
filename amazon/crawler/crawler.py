@@ -18,9 +18,6 @@ Comment out the below 4 lines if system environment is Windows.
 
 '''
 
-display = Display(visible = 0, size = (800, 800))
-display.start()
-driver = webdriver.Chrome()
 
 def mens_fashion():
 
@@ -912,6 +909,10 @@ def Giftcards():
 
 
 if __name__ == '__main__':
+
+    display = Display(visible = 0, size = (800, 800))
+    display.start()
+    driver = webdriver.Chrome()
 
     url='https://www.amazon.in/gp/site-directory/ref=nav_shopall_btn/260-5666397-1854820'
     driver=webdriver.Chrome()
