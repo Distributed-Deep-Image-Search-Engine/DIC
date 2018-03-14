@@ -1,0 +1,1 @@
+echo "https://www.amazon.in/gp/product/B07417987C/ref=s9u_simh_gw_i1?ie=UTF8&pd_rd_i=B07417987C&pd_rd_r=c09cffd3-2625-11e8-a008-71ec069f688d&pd_rd_w=G8cY6&pd_rd_wg=tWdX2&pf_rd_m=A1VBAL9TL5WCBF&pf_rd_s=&pf_rd_r=V5P379GCZ0XHS43P64VR&pf_rd_t=36701&pf_rd_p=ba56d0e7-d7e1-4c43-b40b-a60b412415bc&pf_rd_i=desktop" | ./mapper.py | sort -k1,1 | ./reducer.py
