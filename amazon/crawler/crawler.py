@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # Importing Libraries
 from selenium import webdriver
 import time
