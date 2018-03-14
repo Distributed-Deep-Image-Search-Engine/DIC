@@ -1,4 +1,6 @@
+#!/usr/bin/env python3
 # Importing Libraries
+from pyvirtualdisplay import Display
 from selenium import webdriver
 import time
 from selenium.common.exceptions import NoSuchElementException,StaleElementReferenceException
@@ -7,6 +9,10 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 import re
+
+display = Display(visible = 0, size = (800, 800))
+display.start()
+driver = webdriver.Chrome()
 
 def mens_fashion():
     try:
