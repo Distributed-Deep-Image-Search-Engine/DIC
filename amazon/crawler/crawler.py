@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 # Importing Libraries
+from pyvirtualdisplay import Display
 from selenium import webdriver
 import time
 from selenium.common.exceptions import NoSuchElementException,StaleElementReferenceException
@@ -17,7 +18,6 @@ Comment out the below 4 lines if system environment is Windows.
 
 '''
 
-from pyvirtualdisplay import Display
 display = Display(visible = 0, size = (800, 800))
 display.start()
 driver = webdriver.Chrome()
