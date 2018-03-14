@@ -915,7 +915,7 @@ if __name__ == '__main__':
     driver = webdriver.Chrome()
 
     url='https://www.amazon.in/gp/site-directory/ref=nav_shopall_btn/260-5666397-1854820'
-    driver=webdriver.Chrome()
+   # driver=webdriver.Chrome()
     driver.get(url)
     timeout=200
 
