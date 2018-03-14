@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
+
 # Importing Libraries
-from pyvirtualdisplay import Display
 from selenium import webdriver
 import time
 from selenium.common.exceptions import NoSuchElementException,StaleElementReferenceException
@@ -10,26 +10,44 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 import re
 
+
+'''
+
+Comment out the below 4 lines if system environment is Windows.
+
+'''
+
+from pyvirtualdisplay import Display
 display = Display(visible = 0, size = (800, 800))
 display.start()
 driver = webdriver.Chrome()
 
 def mens_fashion():
+
+    # Locating the presence of elements on category page.
+
     try:
         element_present = EC.presence_of_element_located((By.XPATH, '//*[@id="shopAllLinks"]/tbody/tr'))
         WebDriverWait(driver, timeout).until(element_present)
 
     except TimeoutException:
-        print("Timed out waiting for page to load")
+        print("May be you are not connected to internet")
+        driver.quit()
+        
 
-    x='//*[@id="shopAllLinks"]/tbody/tr/td[2]/div[2]/ul/li[2]/a'
-    split_cat_xpath=x.split('li[2]')
+    xpath_generator ='//*[@id="shopAllLinks"]/tbody/tr/td[2]/div[2]/ul/li[2]/a'
+
+    split_cat_xpath=xpath_generator.split('li[2]')
+
 
 
     for i in range(1,17):
 
+    # Generating xpath for all sub categories
+    
         sub_category=split_cat_xpath[0] + 'li[' + str(i) + ']' + split_cat_xpath[1]
         print(sub_category)
+
         mens_fashion=driver.find_element_by_xpath(sub_category)
         driver.execute_script('arguments[0].click();',mens_fashion)
 
@@ -42,31 +60,38 @@ def mens_fashion():
         page_number = driver.find_element_by_xpath('//*[@id="pagn"]/span[6]').text
 
         while(page<int(page_number)):
+            
             product_ids=[]
+            
             print("Done: {:.2f}%".format(page/int(page_number) * 100), end='\r')
 
             li_tags_in_page=driver.find_elements_by_tag_name('li')
             time.sleep(2)
 
             for i in range(0,len(li_tags_in_page)):
-                c=li_tags_in_page[i].get_attribute('id')
-                if c!='':
-                    e=c.split('result_')
+                tags_with_id=li_tags_in_page[i].get_attribute('id')
+                if tags_with_id!='':
+                    e=tags_with_id.split('result_')
                     product_ids.append(int(e[1]))
 
             for i in range(product_ids[0],product_ids[-1]):
-                abc=prod_xpath[0] + '_' + str(i) + prod_xpath[1]
+                xpath_each_product=prod_xpath[0] + '_' + str(i) + prod_xpath[1]
 
                 try:
-                    link=driver.find_element_by_xpath(abc).get_attribute('href')
+                    link=driver.find_element_by_xpath(xpath_each_product).get_attribute('href')
                     new_link=re.sub('/ref.*','',link)
                     thefile.writelines(new_link)
                     thefile.write('\n')
 
 
-                except(NoSuchElementException):
+                except(NoSuchElementException or StaleElementReferenceException):
+                    
+                    print('Unable to find products on page')
+                    
                     print(end='\r')
+                    
             print(len(product_ids))
+            
             page+=1
 
             try:
@@ -76,7 +101,9 @@ def mens_fashion():
                 time.sleep(2)
 
             except(NoSuchElementException or StaleElementReferenceException):
-
+                
+                print('Failed to load Current page. Proceeding to next.')
+                
                 continue
 
         print('\n')
@@ -90,12 +117,14 @@ def women_fashion():
         WebDriverWait(driver, timeout).until(element_present)
     
     except TimeoutException:
-        print("Timed out waiting for page to load")
+        print("May be you are not connected to internet")
+        driver.quit()
+
+    xpath_generator = '//*[@id="shopAllLinks"]/tbody/tr/td[2]/div[3]/ul/li[1]/a'
     
-    x = '//*[@id="shopAllLinks"]/tbody/tr/td[2]/div[3]/ul/li[1]/a'
-    
-    split_cat_xpath = x.split('li[1]')
+    split_cat_xpath = xpath_generator.split('li[1]')
     for i in range(2, 17):
+
         if i==15 or i==3:
             continue
         else:
@@ -111,23 +140,26 @@ def women_fashion():
 
                 print("Done: {:.2f}%".format(page/int(page_number) * 100), end='\r')
 
-                b = driver.find_elements_by_tag_name('li')
+                li_tags_in_page = driver.find_elements_by_tag_name('li')
                 time.sleep(2)
-                for i in range(0, len(b)):
-                    c = b[i].get_attribute('id')
-                    if c != '':
-                        e = c.split('result_')
+                for i in range(0, len(li_tags_in_page)):
+                    tags_with_id = li_tags_in_page[i].get_attribute('id')
+                    if tags_with_id != '':
+                        e = tags_with_id.split('result_')
                         product_ids.append(int(e[1]))
 
                 for i in range(product_ids[0], product_ids[-1]):
-                    abc = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
+                    xpath_each_product = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
                     try:
-                        link = driver.find_element_by_xpath(abc).get_attribute('href')
+                        link = driver.find_element_by_xpath(xpath_each_product).get_attribute('href')
                         new_link = re.sub('/ref.*', '', link)
                         thefile.writelines(new_link)
                         thefile.write('\n')
-                    except(NoSuchElementException):
+                    except(NoSuchElementException or StaleElementReferenceException):
+                        
+                        print('Unable to find products on page')
                         print(end='\r')
+                        
                 print(len(product_ids))
                 page += 1
 
@@ -138,6 +170,8 @@ def women_fashion():
                     time.sleep(2)
 
                 except(NoSuchElementException or StaleElementReferenceException):
+
+                    print('Failed to load Current page. Proceeding to next.')
 
                     continue
 
@@ -151,9 +185,12 @@ def global_store():
         element_present = EC.presence_of_element_located((By.XPATH, '//*[@id="shopAllLinks"]/tbody/tr/td[4]/div[5]'))
         WebDriverWait(driver, timeout).until(element_present)
     except TimeoutException:
-        print("Timed out waiting for page to load")
-    x = '//*[@id="shopAllLinks"]/tbody/tr/td[4]/div[5]/ul/li[1]/a'
-    split_cat_xpath = x.split('li[1]')
+        print("May be you are not connected to internet")
+        driver.quit()
+
+    xpath_generator = '//*[@id="shopAllLinks"]/tbody/tr/td[4]/div[5]/ul/li[1]/a'
+    split_cat_xpath = xpath_generator.split('li[1]')
+
     selected_categories=[1,2,3,4,8,9,10,11,12,13]
     for i in selected_categories:
         sub_category = split_cat_xpath[0] + 'li[' + str(i) + ']' + split_cat_xpath[1]
@@ -168,22 +205,23 @@ def global_store():
         while (page < int(page_number)):
             product_ids = []
             print("Done: {:.2f}%".format(page/int(page_number)*100), end='\r')
-            b = driver.find_elements_by_tag_name('li')
+            li_tags_in_page= driver.find_elements_by_tag_name('li')
             time.sleep(2)
-            for i in range(0, len(b)):
-                c = b[i].get_attribute('id')
-                if c != '':
-                    e = c.split('result_')
+            for i in range(0, len(li_tags_in_page)):
+                tags_with_id = li_tags_in_page[i].get_attribute('id')
+                if tags_with_id != '':
+                    e = tags_with_id.split('result_')
                     product_ids.append(int(e[1]))
             for i in range(product_ids[0], product_ids[-1]):
-                abc = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
+                xpath_each_product = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
                 try:
-                    link = driver.find_element_by_xpath(abc).get_attribute('href')
+                    link = driver.find_element_by_xpath(xpath_each_product).get_attribute('href')
                     new_link = re.sub('/ref.*', '', link)
                     thefile.writelines(new_link)
                     thefile.write('\n')
-                except(NoSuchElementException):
+                except(NoSuchElementException or StaleElementReferenceException):
                     print(end='\r')
+                    print('Unable to find products on page.')
             print(len(product_ids))
             page += 1
 
@@ -194,7 +232,7 @@ def global_store():
                 time.sleep(2)
 
             except(NoSuchElementException or StaleElementReferenceException):
-
+                print('Failed to load Current page. Proceeding to next.')
                 continue
 
         print('\n')
@@ -210,10 +248,11 @@ def Sports_fitness():
         WebDriverWait(driver, timeout).until(element_present)
 
     except TimeoutException:
-        print("Timed out waiting for page to load")
+        print("May be you are not connected to internet")
+        driver.quit()
 
-    x='//*[@id="shopAllLinks"]/tbody/tr/td[3]/div[3]/ul/li[1]/a'
-    split_cat_xpath = x.split('li[1]')
+    xpath_generator = '//*[@id="shopAllLinks"]/tbody/tr/td[3]/div[3]/ul/li[1]/a'
+    split_cat_xpath = xpath_generator.split('li[1]')
     for i in range(1, 19):
 
         if i==5 or i==12:
@@ -239,23 +278,24 @@ def Sports_fitness():
                 time.sleep(2)
 
                 for i in range(0, len(li_tags_in_page)):
-                    c = li_tags_in_page[i].get_attribute('id')
-                    if c != '':
-                        e = c.split('result_')
+                    tags_with_id = li_tags_in_page[i].get_attribute('id')
+                    if tags_with_id != '':
+                        e = tags_with_id.split('result_')
                         product_ids.append(int(e[1]))
 
                 for i in range(product_ids[0], product_ids[-1]):
-                    abc = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
+                    xpath_each_product = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
 
                     try:
-                        link = driver.find_element_by_xpath(abc).get_attribute('href')
+                        link = driver.find_element_by_xpath(xpath_each_product).get_attribute('href')
                         new_link = re.sub('/ref.*', '', link)
                         thefile.writelines(new_link)
                         thefile.write('\n')
 
 
-                    except(NoSuchElementException):
+                    except(NoSuchElementException or StaleElementReferenceException):
                         print(end='\r')
+                        print('Unable to find products on page')
                 print(len(product_ids))
                 page += 1
 
@@ -266,7 +306,7 @@ def Sports_fitness():
                     time.sleep(2)
 
                 except(NoSuchElementException or StaleElementReferenceException):
-
+                    print('Failed to load Current page. Proceeding to next.')
                     continue
 
             print('\n')
@@ -283,13 +323,16 @@ def Tv_Appliancs_Electronics():
         WebDriverWait(driver, timeout).until(element_present)
 
     except TimeoutException:
-        print("Timed out waiting for page to load")
+        print("May be you are not connected to internet")
+        driver.quit()
 
-    x='//*[@id="shopAllLinks"]/tbody/tr/td[2]/div[1]/ul/li[1]/a'
-    split_cat_xpath = x.split('li[1]')
+    xpath_generator = '//*[@id="shopAllLinks"]/tbody/tr/td[2]/div[1]/ul/li[1]/a'
+    split_cat_xpath = xpath_generator.split('li[1]')
     for i in range(1, 18):
 
-        if i == 7 or i == 9 or i == 11 or i == 12:
+        selected_category=[7,9,11,12]
+
+        if i in selected_category:
             continue
         else:
             sub_category = split_cat_xpath[0] + 'li[' + str(i) + ']' + split_cat_xpath[1]
@@ -312,23 +355,24 @@ def Tv_Appliancs_Electronics():
                 time.sleep(2)
 
                 for i in range(0, len(li_tags_in_page)):
-                    c = li_tags_in_page[i].get_attribute('id')
-                    if c != '':
-                        e = c.split('result_')
+                    tags_with_id = li_tags_in_page[i].get_attribute('id')
+                    if tags_with_id!= '':
+                        e = tags_with_id.split('result_')
                         product_ids.append(int(e[1]))
 
                 for i in range(product_ids[0], product_ids[-1]):
-                    abc = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
+                    xpath_each_product = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
 
                     try:
-                        link = driver.find_element_by_xpath(abc).get_attribute('href')
+                        link = driver.find_element_by_xpath(xpath_each_product).get_attribute('href')
                         new_link = re.sub('/ref.*', '', link)
                         thefile.writelines(new_link)
                         thefile.write('\n')
 
 
-                    except(NoSuchElementException):
+                    except(NoSuchElementException or StaleElementReferenceException):
                         print(end='\r')
+                        print('Unable to find products on page')
                 print(len(product_ids))
                 page += 1
 
@@ -339,7 +383,7 @@ def Tv_Appliancs_Electronics():
                     time.sleep(2)
 
                 except(NoSuchElementException or StaleElementReferenceException):
-
+                    print('Failed to load Current page. Proceeding to next.')
                     continue
 
             print('\n')
@@ -355,10 +399,11 @@ def Mobiles_Computers():
         WebDriverWait(driver, timeout).until(element_present)
 
     except TimeoutException:
-        print("Timed out waiting for page to load")
+        print("May be you are not connected to internet")
+        driver.quit()
 
-    x='//*[@id="shopAllLinks"]/tbody/tr/td[1]/div[6]/ul/li[1]/a'
-    split_cat_xpath = x.split('li[1]')
+    xpath_generator = '//*[@id="shopAllLinks"]/tbody/tr/td[1]/div[6]/ul/li[1]/a'
+    split_cat_xpath = xpath_generator.split('li[1]')
     for i in range(1, 19):
 
         if i == 8 or i == 17 :
@@ -384,23 +429,24 @@ def Mobiles_Computers():
                 time.sleep(2)
 
                 for i in range(0, len(li_tags_in_page)):
-                    c = li_tags_in_page[i].get_attribute('id')
-                    if c != '':
-                        e = c.split('result_')
+                    tags_with_id = li_tags_in_page[i].get_attribute('id')
+                    if tags_with_id!= '':
+                        e = tags_with_id.split('result_')
                         product_ids.append(int(e[1]))
 
                 for i in range(product_ids[0], product_ids[-1]):
-                    abc = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
+                    xpath_each_product = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
 
                     try:
-                        link = driver.find_element_by_xpath(abc).get_attribute('href')
+                        link = driver.find_element_by_xpath(xpath_each_product).get_attribute('href')
                         new_link = re.sub('/ref.*', '', link)
                         thefile.writelines(new_link)
                         thefile.write('\n')
 
 
-                    except(NoSuchElementException):
+                    except(NoSuchElementException or StaleElementReferenceException):
                         print(end='\r')
+                        print('Unable to find products on page')
                 print(len(product_ids))
                 page += 1
 
@@ -411,7 +457,7 @@ def Mobiles_Computers():
                     time.sleep(2)
 
                 except(NoSuchElementException or StaleElementReferenceException):
-
+                    print('Failed to load Current page. Proceeding to next.')
                     continue
 
             print('\n')
@@ -426,13 +472,16 @@ def Home_Kitchen():
         WebDriverWait(driver, timeout).until(element_present)
 
     except TimeoutException:
-        print("Timed out waiting for page to load")
+        print("May be you are not connected to internet")
+        driver.quit()
 
-    x='//*[@id="shopAllLinks"]/tbody/tr/td[3]/div[1]/ul/li[1]/a'
-    split_cat_xpath = x.split('li[1]')
+    xpath_generator = '//*[@id="shopAllLinks"]/tbody/tr/td[3]/div[1]/ul/li[1]/a'
+    split_cat_xpath = xpath_generator.split('li[1]')
     for i in range(1, 18):
 
-        if i == 3 or i == 5 or i==7 or i==8 or i==9 or i==13 or i==14 or i==15 or i==16 :
+        selected_category=[3,5,7,8,9,13,14,15,16]
+
+        if i in selected_category :
             continue
         else:
             sub_category = split_cat_xpath[0] + 'li[' + str(i) + ']' + split_cat_xpath[1]
@@ -455,22 +504,23 @@ def Home_Kitchen():
                 time.sleep(2)
 
                 for i in range(0, len(li_tags_in_page)):
-                    c = li_tags_in_page[i].get_attribute('id')
-                    if c != '':
-                        e = c.split('result_')
+                    tags_with_id = li_tags_in_page[i].get_attribute('id')
+                    if tags_with_id!= '':
+                        e = tags_with_id.split('result_')
                         product_ids.append(int(e[1]))
 
                 for i in range(product_ids[0], product_ids[-1]):
-                    abc = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
+                    xpath_each_product = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
 
                     try:
-                        link = driver.find_element_by_xpath(abc).get_attribute('href')
+                        link = driver.find_element_by_xpath(xpath_each_product).get_attribute('href')
                         new_link = re.sub('/ref.*', '', link)
                         thefile.writelines(new_link)
                         thefile.write('\n')
 
 
-                    except(NoSuchElementException):
+                    except(NoSuchElementException or StaleElementReferenceException):
+                        print('Unable to find products on page')
                         print(end='\r')
                 print(len(product_ids))
                 page += 1
@@ -482,7 +532,7 @@ def Home_Kitchen():
                     time.sleep(2)
 
                 except(NoSuchElementException or StaleElementReferenceException):
-
+                    print('Failed to load Current page. Proceeding to next.')
                     continue
 
             print('\n')
@@ -497,14 +547,15 @@ def Toys_Baby_kids():
         WebDriverWait(driver, timeout).until(element_present)
 
     except TimeoutException:
-        print("Timed out waiting for page to load")
+        print("May be you are not connected to internet")
+        driver.quit()
 
-    x='//*[@id="shopAllLinks"]/tbody/tr/td[3]/div[4]/ul/li[1]/a'
-    # x = line[0].replace("\n", "")
-    split_cat_xpath = x.split('li[1]')
+    xpath_generator = '//*[@id="shopAllLinks"]/tbody/tr/td[3]/div[4]/ul/li[1]/a'
+    split_cat_xpath = xpath_generator.split('li[1]')
     for i in range(1, 18):
 
-        if i == 1 or i == 2 or i==4 or i==5 or i==11 or i==12 or i==13 or i==14 :
+        selected_category=[1,2,4,5,11,12,13,14]
+        if i in selected_category :
             continue
         else:
             sub_category = split_cat_xpath[0] + 'li[' + str(i) + ']' + split_cat_xpath[1]
@@ -527,22 +578,23 @@ def Toys_Baby_kids():
                 time.sleep(2)
 
                 for i in range(0, len(li_tags_in_page)):
-                    c = li_tags_in_page[i].get_attribute('id')
-                    if c != '':
-                        e = c.split('result_')
+                    tags_with_id = li_tags_in_page[i].get_attribute('id')
+                    if tags_with_id!= '':
+                        e = tags_with_id.split('result_')
                         product_ids.append(int(e[1]))
 
                 for i in range(product_ids[0], product_ids[-1]):
-                    abc = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
+                    xpath_each_product = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
 
                     try:
-                        link = driver.find_element_by_xpath(abc).get_attribute('href')
+                        link = driver.find_element_by_xpath(xpath_each_product).get_attribute('href')
                         new_link = re.sub('/ref.*', '', link)
                         thefile.writelines(new_link)
                         thefile.write('\n')
 
 
-                    except(NoSuchElementException):
+                    except(NoSuchElementException or StaleElementReferenceException):
+                        print('Unable to find products on page')
                         print(end='\r')
                 print(len(product_ids))
                 page += 1
@@ -554,7 +606,7 @@ def Toys_Baby_kids():
                     time.sleep(2)
 
                 except(NoSuchElementException or StaleElementReferenceException):
-
+                    print('Failed to load Current page. Proceeding to next.')
                     continue
 
             print('\n')
@@ -570,11 +622,11 @@ def Cars_Motorbikes():
         WebDriverWait(driver, timeout).until(element_present)
 
     except TimeoutException:
-        print("Timed out waiting for page to load")
+        print("May be you are not connected to internet")
+        driver.quit()
 
-    x='//*[@id="shopAllLinks"]/tbody/tr/td[4]/div[1]/ul/li[1]/a'
-    # x = line[0].replace("\n", "")
-    split_cat_xpath = x.split('li[1]')
+    xpath_generator = '//*[@id="shopAllLinks"]/tbody/tr/td[4]/div[1]/ul/li[1]/a'
+    split_cat_xpath = xpath_generator.split('li[1]')
     for i in range(1, 11):
 
         if i == 6 or i == 7 :
@@ -600,22 +652,23 @@ def Cars_Motorbikes():
                 time.sleep(2)
 
                 for i in range(0, len(li_tags_in_page)):
-                    c = li_tags_in_page[i].get_attribute('id')
-                    if c != '':
-                        e = c.split('result_')
+                    tags_with_id = li_tags_in_page[i].get_attribute('id')
+                    if tags_with_id!= '':
+                        e = tags_with_id.split('result_')
                         product_ids.append(int(e[1]))
 
                 for i in range(product_ids[0], product_ids[-1]):
-                    abc = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
+                    xpath_each_product = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
 
                     try:
-                        link = driver.find_element_by_xpath(abc).get_attribute('href')
+                        link = driver.find_element_by_xpath(xpath_each_product).get_attribute('href')
                         new_link = re.sub('/ref.*', '', link)
                         thefile.writelines(new_link)
                         thefile.write('\n')
 
 
-                    except(NoSuchElementException):
+                    except(NoSuchElementException or StaleElementReferenceException):
+                        print('Unable to find products on page')
                         print(end='\r')
                 print(len(product_ids))
                 page += 1
@@ -627,7 +680,7 @@ def Cars_Motorbikes():
                     time.sleep(2)
 
                 except(NoSuchElementException or StaleElementReferenceException):
-
+                    print('Failed to load Current page. Proceeding to next.')
                     continue
 
             print('\n')
@@ -642,10 +695,11 @@ def Books():
         WebDriverWait(driver, timeout).until(element_present)
 
     except TimeoutException:
-        print("Timed out waiting for page to load")
+        print("May be you are not connected to internet")
+        driver.quit()
 
-    x='//*[@id="shopAllLinks"]/tbody/tr/td[4]/div[2]/ul/li[1]/a'
-    split_cat_xpath = x.split('li[1]')
+    xpath_generator = '//*[@id="shopAllLinks"]/tbody/tr/td[4]/div[2]/ul/li[1]/a'
+    split_cat_xpath = xpath_generator.split('li[1]')
     for i in range(1, 11):
 
         if i == 1:
@@ -671,22 +725,23 @@ def Books():
                 time.sleep(2)
 
                 for i in range(0, len(li_tags_in_page)):
-                    c = li_tags_in_page[i].get_attribute('id')
-                    if c != '':
-                        e = c.split('result_')
+                    tags_with_id = li_tags_in_page[i].get_attribute('id')
+                    if tags_with_id!= '':
+                        e = tags_with_id.split('result_')
                         product_ids.append(int(e[1]))
 
                 for i in range(product_ids[0], product_ids[-1]):
-                    abc = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
+                    xpath_each_product = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
 
                     try:
-                        link = driver.find_element_by_xpath(abc).get_attribute('href')
+                        link = driver.find_element_by_xpath(xpath_each_product).get_attribute('href')
                         new_link = re.sub('/ref.*', '', link)
                         thefile.writelines(new_link)
                         thefile.write('\n')
 
 
-                    except(NoSuchElementException):
+                    except(NoSuchElementException or StaleElementReferenceException):
+                        print('Unable to find products on page')
                         print(end='\r')
                 print(len(product_ids))
                 page += 1
@@ -698,7 +753,7 @@ def Books():
                     time.sleep(2)
 
                 except(NoSuchElementException or StaleElementReferenceException):
-
+                    print('Failed to load Current page. Proceeding to next.')
                     continue
 
             print('\n')
@@ -714,10 +769,11 @@ def Movies_Music_Videogames():
         WebDriverWait(driver, timeout).until(element_present)
 
     except TimeoutException:
-        print("Timed out waiting for page to load")
+        print("May be you are not connected to internet")
+        driver.quit()
 
-    x='//*[@id="shopAllLinks"]/tbody/tr/td[4]/div[3]/ul/li[1]/a'
-    split_cat_xpath = x.split('li[1]')
+    xpath_generator = '//*[@id="shopAllLinks"]/tbody/tr/td[4]/div[3]/ul/li[1]/a'
+    split_cat_xpath = xpath_generator.split('li[1]')
     for i in range(1, 16):
 
         if i == 1 or i==10 or i==11:
@@ -743,22 +799,23 @@ def Movies_Music_Videogames():
                 time.sleep(2)
 
                 for i in range(0, len(li_tags_in_page)):
-                    c = li_tags_in_page[i].get_attribute('id')
-                    if c != '':
-                        e = c.split('result_')
+                    tags_with_id = li_tags_in_page[i].get_attribute('id')
+                    if tags_with_id!= '':
+                        e = tags_with_id.split('result_')
                         product_ids.append(int(e[1]))
 
                 for i in range(product_ids[0], product_ids[-1]):
-                    abc = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
+                    xpath_each_product = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
 
                     try:
-                        link = driver.find_element_by_xpath(abc).get_attribute('href')
+                        link = driver.find_element_by_xpath(xpath_each_product).get_attribute('href')
                         new_link = re.sub('/ref.*', '', link)
                         thefile.writelines(new_link)
                         thefile.write('\n')
 
 
-                    except(NoSuchElementException):
+                    except(NoSuchElementException or StaleElementReferenceException):
+                        print('Unable to find products on page')
                         print(end='\r')
                 print(len(product_ids))
                 page += 1
@@ -770,7 +827,7 @@ def Movies_Music_Videogames():
                     time.sleep(2)
 
                 except(NoSuchElementException or StaleElementReferenceException):
-
+                    print('Failed to load Current page. Proceeding to next.')
                     continue
 
             print('\n')
@@ -785,10 +842,11 @@ def Giftcards():
         WebDriverWait(driver, timeout).until(element_present)
 
     except TimeoutException:
-        print("Timed out waiting for page to load")
+        print("May be you are not connected to internet")
+        driver.quit()
 
-    x='//*[@id="shopAllLinks"]/tbody/tr/td[4]/div[4]/ul/li[1]/a'
-    split_cat_xpath = x.split('li[1]')
+    xpath_generator = '//*[@id="shopAllLinks"]/tbody/tr/td[4]/div[4]/ul/li[1]/a'
+    split_cat_xpath = xpath_generator.split('li[1]')
     for i in range(1, 8):
 
         if i == 1 :
@@ -814,21 +872,22 @@ def Giftcards():
                 time.sleep(2)
 
                 for i in range(0, len(li_tags_in_page)):
-                    c = li_tags_in_page[i].get_attribute('id')
-                    if c != '':
-                        e = c.split('result_')
+                    tags_with_id = li_tags_in_page[i].get_attribute('id')
+                    if tags_with_id!= '':
+                        e = tags_with_id.split('result_')
                         product_ids.append(int(e[1]))
 
                 for i in range(product_ids[0], product_ids[-1]):
-                    abc = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
+                    xpath_each_product = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
 
                     try:
-                        link = driver.find_element_by_xpath(abc).get_attribute('href')
+                        link = driver.find_element_by_xpath(xpath_each_product).get_attribute('href')
                         new_link = re.sub('/ref.*', '', link)
                         thefile.writelines(new_link)
                         thefile.write('\n')
 
-                    except(NoSuchElementException):
+                    except(NoSuchElementException or StaleElementReferenceException):
+                        print('Unable to find products on page')
                         print(end='\r')
 
                 print(len(product_ids))
@@ -841,7 +900,7 @@ def Giftcards():
                     time.sleep(2)
 
                 except(NoSuchElementException or StaleElementReferenceException):
-
+                    print('Failed to load Current page. Proceeding to next.')
                     continue
 
             print('\n')
@@ -884,10 +943,13 @@ if __name__ == '__main__':
 
     for i in range(len(line)):
         choice=str(line[i]).replace('\n','')
+        
+        
 
         try:
 
             dict_category_function[choice]()
+            print(str(choice) + ': Done')
 
         except(KeyError):
 
