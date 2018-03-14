@@ -918,8 +918,8 @@ if __name__ == '__main__':
     driver.get(url)
     timeout=200
 
-    filepath='seeds.txt'
-    thefile = open('data_new.txt', 'w')
+    filepath='crawl_categories.txt'
+    thefile = open('product-links', 'w')
 
     with open(filepath) as fp:
         line=fp.readlines()
