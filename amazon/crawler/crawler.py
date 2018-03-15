@@ -43,7 +43,6 @@ def mens_fashion():
     # Generating xpath for all sub categories
     
         sub_category=split_cat_xpath[0] + 'li[' + str(i) + ']' + split_cat_xpath[1]
-        print(sub_category)
 
         mens_fashion=driver.find_element_by_xpath(sub_category)
         driver.execute_script('arguments[0].click();',mens_fashion)
@@ -83,7 +82,7 @@ def mens_fashion():
 
                 except(NoSuchElementException or StaleElementReferenceException):
                     
-                    print('Unable to find products on page')
+                    print('Sponsored Link')
                     
                     print(end='\r')
                     
@@ -154,7 +153,7 @@ def women_fashion():
                         thefile.write('\n')
                     except(NoSuchElementException or StaleElementReferenceException):
                         
-                        print('Unable to find products on page')
+                        print('Sponsored Link')
                         print(end='\r')
                         
                 print(len(product_ids))
@@ -218,7 +217,7 @@ def global_store():
                     thefile.write('\n')
                 except(NoSuchElementException or StaleElementReferenceException):
                     print(end='\r')
-                    print('Unable to find products on page.')
+                    print('Sponsored Link.')
             print(len(product_ids))
             page += 1
 
@@ -292,7 +291,7 @@ def Sports_fitness():
 
                     except(NoSuchElementException or StaleElementReferenceException):
                         print(end='\r')
-                        print('Unable to find products on page')
+                        print('Sponsored Link')
                 print(len(product_ids))
                 page += 1
 
@@ -369,7 +368,7 @@ def Tv_Appliancs_Electronics():
 
                     except(NoSuchElementException or StaleElementReferenceException):
                         print(end='\r')
-                        print('Unable to find products on page')
+                        print('Sponsored Link')
                 print(len(product_ids))
                 page += 1
 
@@ -443,7 +442,7 @@ def Mobiles_Computers():
 
                     except(NoSuchElementException or StaleElementReferenceException):
                         print(end='\r')
-                        print('Unable to find products on page')
+                        print('Sponsored Link')
                 print(len(product_ids))
                 page += 1
 
@@ -517,7 +516,7 @@ def Home_Kitchen():
 
 
                     except(NoSuchElementException or StaleElementReferenceException):
-                        print('Unable to find products on page')
+                        print('Sponsored Link')
                         print(end='\r')
                 print(len(product_ids))
                 page += 1
@@ -591,7 +590,7 @@ def Toys_Baby_kids():
 
 
                     except(NoSuchElementException or StaleElementReferenceException):
-                        print('Unable to find products on page')
+                        print('Sponsored Link')
                         print(end='\r')
                 print(len(product_ids))
                 page += 1
@@ -665,7 +664,7 @@ def Cars_Motorbikes():
 
 
                     except(NoSuchElementException or StaleElementReferenceException):
-                        print('Unable to find products on page')
+                        print('Sponsored Link')
                         print(end='\r')
                 print(len(product_ids))
                 page += 1
@@ -738,7 +737,7 @@ def Books():
 
 
                     except(NoSuchElementException or StaleElementReferenceException):
-                        print('Unable to find products on page')
+                        print('Sponsored Link')
                         print(end='\r')
                 print(len(product_ids))
                 page += 1
@@ -812,7 +811,7 @@ def Movies_Music_Videogames():
 
 
                     except(NoSuchElementException or StaleElementReferenceException):
-                        print('Unable to find products on page')
+                        print('Sponsored Link')
                         print(end='\r')
                 print(len(product_ids))
                 page += 1
@@ -884,7 +883,7 @@ def Giftcards():
                         thefile.write('\n')
 
                     except(NoSuchElementException or StaleElementReferenceException):
-                        print('Unable to find products on page')
+                        print('Sponsored Link')
                         print(end='\r')
 
                 print(len(product_ids))
