@@ -144,19 +144,21 @@ def women_fashion():
                     if tags_with_id != '':
                         e = tags_with_id.split('result_')
                         product_ids.append(int(e[1]))
+                try:                   
+                    for i in range(product_ids[0], product_ids[-1]):
+                        xpath_each_product = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
+                        try:
+                            link = driver.find_element_by_xpath(xpath_each_product).get_attribute('href')
+                            new_link = re.sub('/ref.*', '', link)
+                            thefile.writelines(new_link)
+                            thefile.write('\n')
+                        except(NoSuchElementException or StaleElementReferenceException):
+                            
+                            print('Sponsored Link')
+                            print(end='\r')
+                except(IndexError):
+                    print('Empty string')
 
-                for i in range(product_ids[0], product_ids[-1]):
-                    xpath_each_product = prod_xpath[0] + '_' + str(i) + prod_xpath[1]
-                    try:
-                        link = driver.find_element_by_xpath(xpath_each_product).get_attribute('href')
-                        new_link = re.sub('/ref.*', '', link)
-                        thefile.writelines(new_link)
-                        thefile.write('\n')
-                    except(NoSuchElementException or StaleElementReferenceException):
-                        
-                        print('Sponsored Link')
-                        print(end='\r')
-                        
                 print(len(product_ids))
                 page += 1
 
