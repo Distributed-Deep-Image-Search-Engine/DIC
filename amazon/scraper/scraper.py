@@ -1,4 +1,3 @@
-import time
 from bs4 import BeautifulSoup
 import requests
 import re
@@ -14,7 +13,6 @@ class ProductData:
         self.head = self.agent.random
         self.header = {'User-Agent': self.head}
         self.reqt = (requests.get(url,headers=self.header,timeout=None))
-        time.sleep(2)
         self.soup = BeautifulSoup((self.reqt).text, "lxml")   # making soup
 
     def get_images(self):
@@ -90,3 +88,45 @@ class ProductData:
         # just a deconstructor
         return 0
 
+file=open('product_data','w')
+
+filepath='Mens-fashion-product-links'
+
+with open(filepath) as fp:
+    line=fp.readlines()
+
+for i in range(0,len(line)):
+
+    prod = ProductData(line[i])
+    try:
+        print(prod.get_asin())
+        file.writelines(prod.get_asin())
+        file.writelines('\n')
+    except(TypeError):
+        print('None Type Error')
+    try:
+        print(prod.get_title())
+        file.writelines(prod.get_title())
+        file.writelines('\n')
+    except(TypeError):
+        print('None Type Error')
+    try:
+        print(prod.get_images())
+        file.writelines(prod.get_images())
+        file.writelines('\n')
+    except(TypeError):
+        print('None Type Error')
+    try:
+        print(prod.get_category())
+        file.writelines(prod.get_category())
+        file.writelines('\n')
+    except(TypeError):
+        print('None Type Error')
+    try:
+        print(prod.meta_data())
+        file.writelines(prod.meta_data())
+        file.writelines('\n')
+    except(TypeError):
+        print('None Type Error')
+
+file.close()
