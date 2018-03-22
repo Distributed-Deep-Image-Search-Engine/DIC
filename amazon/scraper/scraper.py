@@ -88,45 +88,45 @@ class ProductData:
         # just a deconstructor
         return 0
 
-file=open('product_data','w')
+# file=open('product_data','w')
 
-filepath='Mens-fashion-product-links'
+# filepath='Mens-fashion-product-links'
 
-with open(filepath) as fp:
-    line=fp.readlines()
+# with open(filepath) as fp:
+#     line=fp.readlines()
 
-for i in range(0,len(line)):
+# for i in range(0,len(line)):
 
-    prod = ProductData(line[i])
-    try:
-        print(prod.get_asin())
-        file.writelines(prod.get_asin())
-        file.writelines('\n')
-    except(TypeError):
-        print('None Type Error')
-    try:
-        print(prod.get_title())
-        file.writelines(prod.get_title())
-        file.writelines('\n')
-    except(TypeError):
-        print('None Type Error')
-    try:
-        print(prod.get_images())
-        file.writelines(prod.get_images())
-        file.writelines('\n')
-    except(TypeError):
-        print('None Type Error')
-    try:
-        print(prod.get_category())
-        file.writelines(prod.get_category())
-        file.writelines('\n')
-    except(TypeError):
-        print('None Type Error')
-    try:
-        print(prod.meta_data())
-        file.writelines(prod.meta_data())
-        file.writelines('\n')
-    except(TypeError):
-        print('None Type Error')
+#     prod = ProductData(line[i])
+#     try:
+#         print(prod.get_asin())
+#         file.writelines(prod.get_asin())
+#         file.writelines('\n')
+#     except(TypeError):
+#         print('None Type Error')
+#     try:
+#         print(prod.get_title())
+#         file.writelines(prod.get_title())
+#         file.writelines('\n')
+#     except(TypeError):
+#         print('None Type Error')
+#     try:
+#         print(prod.get_images())
+#         file.writelines(prod.get_images())
+#         file.writelines('\n')
+#     except(TypeError):
+#         print('None Type Error')
+#     try:
+#         print(prod.get_category())
+#         file.writelines(prod.get_category())
+#         file.writelines('\n')
+#     except(TypeError):
+#         print('None Type Error')
+#     try:
+#         print(prod.meta_data())
+#         file.writelines(prod.meta_data())
+#         file.writelines('\n')
+#     except(TypeError):
+#         print('None Type Error')
 
-file.close()
+# file.close()
