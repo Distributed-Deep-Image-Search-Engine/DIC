@@ -4,12 +4,13 @@ from collections import OrderedDict
 
 df = pd.DataFrame()
 
+file_name = 'give the desired file_name'
 
-for line in open('all_links'):
+for line in open(file_name):
 	url = line.strip()
 	
 	# Making the class object
-	prod = ProductData('https://www.amazon.in/Reebok-Unisex-Solid-Ankle-Length/dp/B075BGB7JY')
+	prod = ProductData(url)
 
 	my_dict = OrderedDict()
 	my_dict['Asin'] = prod.get_asin()
