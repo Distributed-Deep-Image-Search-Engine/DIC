@@ -59,7 +59,7 @@ def mens_fashion():
             
             product_ids=[]
             
-            print("Done: {:.2f}%".format(page/int(page_number) * 100), end='\r')
+            print("Done: {:.2f}%".format(page/int(page_number) * 100), )
 
             li_tags_in_page=driver.find_elements_by_tag_name('li')
             time.sleep(2)
@@ -84,7 +84,7 @@ def mens_fashion():
 
                         print('Sponsored Link')
 
-                        print(end='\r')
+                        
             except(IndexError):
                 print('Empty string')
             print(len(product_ids))
@@ -135,7 +135,7 @@ def women_fashion():
             while (page < int(page_number)):
                 product_ids = []
 
-                print("Done: {:.2f}%".format(page/int(page_number) * 100), end='\r')
+                print("Done: {:.2f}%".format(page/int(page_number) * 100), )
 
                 li_tags_in_page = driver.find_elements_by_tag_name('li')
                 time.sleep(2)
@@ -155,7 +155,7 @@ def women_fashion():
                         except(NoSuchElementException or StaleElementReferenceException):
                             
                             print('Sponsored Link')
-                            print(end='\r')
+                            
                 except(IndexError):
                     print('Empty string')
 
@@ -203,7 +203,7 @@ def global_store():
         page_number = driver.find_element_by_xpath('//*[@id="pagn"]/span[6]').text
         while (page < int(page_number)):
             product_ids = []
-            print("Done: {:.2f}%".format(page/int(page_number)*100), end='\r')
+            print("Done: {:.2f}%".format(page/int(page_number)*100), )
             li_tags_in_page= driver.find_elements_by_tag_name('li')
             time.sleep(2)
             for i in range(0, len(li_tags_in_page)):
@@ -219,7 +219,7 @@ def global_store():
                     thefile.writelines(new_link)
                     thefile.write('\n')
                 except(NoSuchElementException or StaleElementReferenceException):
-                    print(end='\r')
+                    
                     print('Sponsored Link.')
             print(len(product_ids))
             page += 1
@@ -271,7 +271,7 @@ def Sports_fitness():
 
             while (page < int(page_number)):
                 product_ids = []
-                print("Done: {:.2f}%".format(page / int(page_number) * 100), end='\r')
+                print("Done: {:.2f}%".format(page / int(page_number) * 100), )
 
                 li_tags_in_page = driver.find_elements_by_tag_name('li')
                 time.sleep(2)
@@ -293,7 +293,7 @@ def Sports_fitness():
 
 
                     except(NoSuchElementException or StaleElementReferenceException):
-                        print(end='\r')
+                        
                         print('Sponsored Link')
                 print(len(product_ids))
                 page += 1
@@ -348,7 +348,7 @@ def Tv_Appliancs_Electronics():
 
             while (page < int(page_number)):
                 product_ids = []
-                print("Done: {:.2f}%".format(page / int(page_number) * 100), end='\r')
+                print("Done: {:.2f}%".format(page / int(page_number) * 100), )
 
                 li_tags_in_page = driver.find_elements_by_tag_name('li')
                 time.sleep(2)
@@ -370,7 +370,7 @@ def Tv_Appliancs_Electronics():
 
 
                     except(NoSuchElementException or StaleElementReferenceException):
-                        print(end='\r')
+                        
                         print('Sponsored Link')
                 print(len(product_ids))
                 page += 1
@@ -422,7 +422,7 @@ def Mobiles_Computers():
 
             while (page < int(page_number)):
                 product_ids = []
-                print("Done: {:.2f}%".format(page / int(page_number) * 100), end='\r')
+                print("Done: {:.2f}%".format(page / int(page_number) * 100), )
 
                 li_tags_in_page = driver.find_elements_by_tag_name('li')
                 time.sleep(2)
@@ -444,7 +444,7 @@ def Mobiles_Computers():
 
 
                     except(NoSuchElementException or StaleElementReferenceException):
-                        print(end='\r')
+                        
                         print('Sponsored Link')
                 print(len(product_ids))
                 page += 1
@@ -497,7 +497,7 @@ def Home_Kitchen():
 
             while (page < int(page_number)):
                 product_ids = []
-                print("Done: {:.2f}%".format(page / int(page_number) * 100), end='\r')
+                print("Done: {:.2f}%".format(page / int(page_number) * 100), )
 
                 li_tags_in_page = driver.find_elements_by_tag_name('li')
                 time.sleep(2)
@@ -520,7 +520,7 @@ def Home_Kitchen():
 
                     except(NoSuchElementException or StaleElementReferenceException):
                         print('Sponsored Link')
-                        print(end='\r')
+                        
                 print(len(product_ids))
                 page += 1
 
@@ -571,7 +571,7 @@ def Toys_Baby_kids():
 
             while (page < int(page_number)):
                 product_ids = []
-                print("Done: {:.2f}%".format(page / int(page_number) * 100), end='\r')
+                print("Done: {:.2f}%".format(page / int(page_number) * 100), )
 
                 li_tags_in_page = driver.find_elements_by_tag_name('li')
                 time.sleep(2)
@@ -594,7 +594,7 @@ def Toys_Baby_kids():
 
                     except(NoSuchElementException or StaleElementReferenceException):
                         print('Sponsored Link')
-                        print(end='\r')
+                        
                 print(len(product_ids))
                 page += 1
 
@@ -645,7 +645,7 @@ def Cars_Motorbikes():
 
             while (page < int(page_number)):
                 product_ids = []
-                print("Done: {:.2f}%".format(page / int(page_number) * 100), end='\r')
+                print("Done: {:.2f}%".format(page / int(page_number) * 100), )
 
                 li_tags_in_page = driver.find_elements_by_tag_name('li')
                 time.sleep(2)
@@ -668,7 +668,7 @@ def Cars_Motorbikes():
 
                     except(NoSuchElementException or StaleElementReferenceException):
                         print('Sponsored Link')
-                        print(end='\r')
+                        
                 print(len(product_ids))
                 page += 1
 
@@ -718,7 +718,7 @@ def Books():
 
             while (page < int(page_number)):
                 product_ids = []
-                print("Done: {:.2f}%".format(page / int(page_number) * 100), end='\r')
+                print("Done: {:.2f}%".format(page / int(page_number) * 100), )
 
                 li_tags_in_page = driver.find_elements_by_tag_name('li')
                 time.sleep(2)
@@ -741,7 +741,7 @@ def Books():
 
                     except(NoSuchElementException or StaleElementReferenceException):
                         print('Sponsored Link')
-                        print(end='\r')
+                        
                 print(len(product_ids))
                 page += 1
 
@@ -792,7 +792,7 @@ def Movies_Music_Videogames():
 
             while (page < int(page_number)):
                 product_ids = []
-                print("Done: {:.2f}%".format(page / int(page_number) * 100), end='\r')
+                print("Done: {:.2f}%".format(page / int(page_number) * 100), )
 
                 li_tags_in_page = driver.find_elements_by_tag_name('li')
                 time.sleep(2)
@@ -815,7 +815,7 @@ def Movies_Music_Videogames():
 
                     except(NoSuchElementException or StaleElementReferenceException):
                         print('Sponsored Link')
-                        print(end='\r')
+                        
                 print(len(product_ids))
                 page += 1
 
@@ -865,7 +865,7 @@ def Giftcards():
 
             while (page < int(page_number)):
                 product_ids = []
-                print("Done: {:.2f}%".format(page / int(page_number) * 100), end='\r')
+                print("Done: {:.2f}%".format(page / int(page_number) * 100), )
 
                 li_tags_in_page = driver.find_elements_by_tag_name('li')
                 time.sleep(2)
@@ -887,7 +887,7 @@ def Giftcards():
 
                     except(NoSuchElementException or StaleElementReferenceException):
                         print('Sponsored Link')
-                        print(end='\r')
+                        
 
                 print(len(product_ids))
                 page += 1

@@ -8,6 +8,7 @@ class ProductData:
     reqt = ''
 
     def __init__(self, url):
+
         self.agent = fake_useragent.UserAgent()
         self.head = self.agent.random
         self.header = {'User-Agent': self.head}
@@ -86,3 +87,4 @@ class ProductData:
     def __del__(self):
         # just a deconstructor
         return 0
+
