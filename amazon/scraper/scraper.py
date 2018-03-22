@@ -1,3 +1,4 @@
+import time
 from bs4 import BeautifulSoup
 import requests
 import re
@@ -13,6 +14,7 @@ class ProductData:
         self.head = self.agent.random
         self.header = {'User-Agent': self.head}
         self.reqt = (requests.get(url,headers=self.header,timeout=None))
+        time.sleep(2)
         self.soup = BeautifulSoup((self.reqt).text, "lxml")   # making soup
 
     def get_images(self):
